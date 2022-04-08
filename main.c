@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World!\n");
 
-    // Test
+    printf("LAST Command: \n");
+
 
     return 0;
 }
