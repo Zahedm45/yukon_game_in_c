@@ -9,8 +9,11 @@ int main() {
 /*    initialize_card_deck();
     print_out();*/
 
-    display_card_deck();
 
+    initialize_card_deck();
+
+    print_out();
+    initialize_game_board(card_deck);
     return 0;
 }
 

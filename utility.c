@@ -16,26 +16,6 @@ void add_node(const char val[2], int hidden);
 
 
 
-
-void add_card_to_block(Card *block, const char val[2], int hidden){
-    Card *temp = block;
-
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
-
-
-
-}
-
-
-
-
 Blocks * initialize_game_board(Card *cards){
 
     Card *temp = cards;
@@ -44,20 +24,58 @@ Blocks * initialize_game_board(Card *cards){
     int j = 0;
     for (int i = 0; i < 7; ++i) {
 
-
         j++;
         for (int k = 0; k <j; ++k) {
-            new_board->block1[j] = *temp;
+            if (temp == NULL) {
+                printf("Something went wrong. From initialize_game_board() %d %d", i, k);
+                exit(0);
+            }
+
+            new_board->block1[i] = *temp;
             temp = temp->next;
         }
 
         if (i == 0) {
-            j = 6;
+            j = 5;
         }
     }
 
     return new_board;
 }
+
+
+
+
+void display_card_deck(Blocks *game_board){
+    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
+
+
+
+
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+
+    Card *temp;
+    for (int i = 0; i < 7; ++i) {
+        if (temp != NULL) {
+            free(temp);
+        }
+        temp = &game_board->block1[i];
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -80,6 +98,26 @@ void initialize_card_deck() {
 }
 
 
+
+
+void add_card_to_block(Card *block, const char val[2], int hidden){
+    Card *temp = block;
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+
+
+
+}
+
+
+
 void add_node(const char val[2], int hidden) {
     Card *newC = malloc(sizeof(Card));
     newC->suites_value[0] = val[0];
@@ -96,16 +134,6 @@ void add_node(const char val[2], int hidden) {
 
 
 
-void display_card_deck(){
-    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
-
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-
-
-}
 
 
 
