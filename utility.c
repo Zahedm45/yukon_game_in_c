@@ -3,14 +3,10 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include "blocks.c"
 
 
-typedef struct Card {
-    char suites_value[2];
-    int face_up;
-    struct Card* next;
 
-}Card;
 
 Card *cards;
 Card *last_added;
