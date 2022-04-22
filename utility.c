@@ -50,7 +50,19 @@ void add_node(const char val[2], int hidden) {
 }
 
 
+void display_card_deck(Card *cards){
+    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
 
+    Card *temp = cards;
+
+    while (temp != NULL) {
+
+
+
+        temp = temp->next;
+    }
+
+}
 
 
 void print_out() {

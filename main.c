@@ -8,9 +8,8 @@
 
 int main() {
 
-
-    initialize_card_deck();
-    print_out();
+/*    initialize_card_deck();
+    print_out();*/
 
 
     return 0;
