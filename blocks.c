@@ -3,12 +3,16 @@
 //
 
 
+
+
 typedef struct Card {
     char suites_value[2];
     int face_up;
     struct Card* next;
 
 }Card;
+
+
 
 typedef struct Block{
     Card *block1;
@@ -19,11 +23,15 @@ typedef struct Block{
     Card *block6;
     Card *block7;
 
+
     char foundation1[2];
     char foundation2[2];
     char foundation3[2];
     char foundation4[2];
 
 }Block;
+
+
+
 
 
