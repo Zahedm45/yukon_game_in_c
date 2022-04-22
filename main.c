@@ -3,7 +3,7 @@
 
 typedef struct Card {
     char suites_value[2];
-    int hidden;
+    int face_up;
     struct Card* next;
 
 }Card;
@@ -12,6 +12,7 @@ Card *cards;
 Card *last_added;
 
 void add_node(char val[], int hidden);
+void print_out();
 
 int main() {
 
@@ -21,49 +22,67 @@ int main() {
     char suites[4] = {'C', 'D', 'H', 'S'};
 
 
-    add_node("HD", 1);
+/*    add_node("HD", 1);
     add_node("H1", 1);
-    add_node("H2", 1);
+    add_node("H2", 1);*/
 
-    Card *temp = cards;
+    char val[2];
 
-    while (temp != NULL) {
-
-        printf("hello %s, %d\n", temp->suites_value, temp->hidden);
-
-        temp = temp->next;
-    }
-
-
-
-/*    for (int i = 0; i < sizeof(suites); ++i) {
+/*
+    for (int i = 0; i < sizeof(suites); ++i) {
 
         for (int j = 0; j < sizeof(values); ++j) {
-
-
+            val[0] = suites[i];
+            val[1] = values[j];
+            //printf("%s", val[0], )
+            add_node("hello", j);
         }
-    }*/
+
+    }
+*/
+
+    add_node("hello", 1);
+    add_node("hello", 2);
+    add_node("hello", 3);
 
 
+
+
+    print_out();
 
     return 0;
 }
 
 
-void add_node(char val[], int hidden) {
+void add_node(char val[2], int hidden) {
 
     Card *newC = malloc(sizeof(Card));
 
     newC->suites_value[0] = val[0];
     newC->suites_value[1] = val[1];
-    newC->hidden = hidden;
+    newC->face_up = hidden;
 
 
     if (cards != NULL) {
         last_added->next = newC;
-        last_added = newC;
+        last_added = last_added->next;
 
     } else cards = last_added = newC;
 
+
+
+
+
+}
+
+void print_out() {
+
+    Card *temp = cards;
+
+    while (temp != NULL) {
+
+        printf("%s, %d\n", temp->suites_value, temp->face_up);
+        temp = temp->next;
+    }
 
 }
