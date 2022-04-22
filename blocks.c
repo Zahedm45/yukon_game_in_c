@@ -15,7 +15,7 @@ typedef struct Card {
 
 
 typedef struct Blocks{
-    Card block1[7];
+    Card blocks[7];
 /*    Card *block2;
     Card *block3;
     Card *block4;

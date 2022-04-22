@@ -10,7 +10,7 @@
 Card *card_deck;
 Card *last_added_card_deck;
 
-Blocks *game_board;
+
 
 void add_node(const char val[2], int hidden);
 
@@ -24,16 +24,19 @@ Blocks * initialize_game_board(Card *cards){
     int j = 0;
     for (int i = 0; i < 7; ++i) {
 
+        Card *new_block = malloc(sizeof(Card));
+
         j++;
         for (int k = 0; k <j; ++k) {
             if (temp == NULL) {
                 printf("Something went wrong. From initialize_game_board() %d %d", i, k);
                 exit(0);
             }
+            new_block = temp;
 
-            new_board->block1[i] = *temp;
             temp = temp->next;
         }
+        new_board->blocks[i] = *new_block;
 
         if (i == 0) {
             j = 5;
@@ -46,7 +49,7 @@ Blocks * initialize_game_board(Card *cards){
 
 
 
-void display_card_deck(Blocks *game_board){
+void display_card_deck(Blocks *board){
     printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
 
 
@@ -57,13 +60,16 @@ void display_card_deck(Blocks *game_board){
     printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
     printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
 
-    Card *temp;
     for (int i = 0; i < 7; ++i) {
-        if (temp != NULL) {
-            free(temp);
-        }
-        temp = &game_board->block1[i];
 
+        Card *temp = &board->blocks[i];
+        printf("Block: %d ", i);
+        while (temp != NULL) {
+            printf("%s, %d\t", temp->suites_value, temp->face_up);
+            temp = temp->next;
+        }
+
+        printf("\n");
 
     }
 
@@ -71,6 +77,18 @@ void display_card_deck(Blocks *game_board){
 }
 
 
+void free_mem(Card *mem) {
+
+
+
+    while (mem != NULL) {
+        Card *temp = mem;
+        mem = mem->next;
+        free(temp);
+
+    }
+
+}
 
 
 
