@@ -14,14 +14,14 @@ typedef struct Card {
 
 
 
-typedef struct Block{
-    Card *block1;
-    Card *block2;
+typedef struct Blocks{
+    Card block1[7];
+/*    Card *block2;
     Card *block3;
     Card *block4;
     Card *block5;
     Card *block6;
-    Card *block7;
+    Card *block7;*/
 
 
     char foundation1[2];
@@ -29,7 +29,7 @@ typedef struct Block{
     char foundation3[2];
     char foundation4[2];
 
-}Block;
+}Blocks;
 
 
 

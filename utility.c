@@ -7,12 +7,59 @@
 
 
 
-Card *cards;
-Card *last_added;
+Card *card_deck;
+Card *last_added_card_deck;
 
-Block *game_board;
+Blocks *game_board;
 
 void add_node(const char val[2], int hidden);
+
+
+
+
+void add_card_to_block(Card *block, const char val[2], int hidden){
+    Card *temp = block;
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+
+
+
+}
+
+
+
+
+Blocks * initialize_game_board(Card *cards){
+
+    Card *temp = cards;
+    Blocks *new_board = malloc(sizeof(Blocks));
+
+    int j = 0;
+    for (int i = 0; i < 7; ++i) {
+
+
+        j++;
+        for (int k = 0; k <j; ++k) {
+            new_board->block1[j] = *temp;
+            temp = temp->next;
+        }
+
+        if (i == 0) {
+            j = 6;
+        }
+    }
+
+    return new_board;
+}
+
+
 
 void initialize_card_deck() {
 
@@ -39,11 +86,11 @@ void add_node(const char val[2], int hidden) {
     newC->suites_value[1] = val[1];
     newC->face_up = hidden;
 
-    if (cards != NULL) {
-        last_added->next = newC;
-        last_added = last_added->next;
+    if (card_deck != NULL) {
+        last_added_card_deck->next = newC;
+        last_added_card_deck = last_added_card_deck->next;
 
-    } else cards = last_added = newC;
+    } else card_deck = last_added_card_deck = newC;
 
 }
 
@@ -52,14 +99,24 @@ void add_node(const char val[2], int hidden) {
 void display_card_deck(){
     printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
 
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
+
 
 }
 
 
+
+
+
+
+
+
 void print_out() {
 
-    Card *temp = cards;
+    Card *temp = card_deck;
     while (temp != NULL) {
         printf("%s, %d\n", temp->suites_value, temp->face_up);
         temp = temp->next;
