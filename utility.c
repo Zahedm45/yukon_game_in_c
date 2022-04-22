@@ -24,9 +24,7 @@ void initialize_card_deck() {
 
     char val[2];
 
-
     for (int i = 0; i < sizeof(suites); ++i) {
-
         for (int j = 0; j < sizeof(values); ++j) {
             val[0] = suites[i];
             val[1] = values[j];
@@ -38,13 +36,10 @@ void initialize_card_deck() {
 
 
 void add_node(const char val[2], int hidden) {
-
     Card *newC = malloc(sizeof(Card));
-
     newC->suites_value[0] = val[0];
     newC->suites_value[1] = val[1];
     newC->face_up = hidden;
-
 
     if (cards != NULL) {
         last_added->next = newC;
