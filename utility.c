@@ -13,6 +13,8 @@ Card *last_added_card_deck;
 
 
 void add_node(const char val[2], int hidden);
+Card * add_card_to_block(Card *block, const char val[2], int hidden);
+void free_mem(Card *mem);
 
 
 
@@ -32,11 +34,22 @@ Blocks * initialize_game_board(Card *cards){
                 printf("Something went wrong. From initialize_game_board() %d %d", i, k);
                 exit(0);
             }
-            new_block = temp;
+
+            char value[2];
+            value[0] =  temp->suites_value[0];
+            value[1] =  temp->suites_value[1];
+
+            //add_card_to_block(&new_block, value, temp->face_up);
+
+            new_block = add_card_to_block(new_block, "hd", 1);
 
             temp = temp->next;
+
+
         }
+
         new_board->blocks[i] = *new_block;
+//        free_mem(new_block);
 
         if (i == 0) {
             j = 5;
@@ -45,6 +58,29 @@ Blocks * initialize_game_board(Card *cards){
 
     return new_board;
 }
+
+
+
+
+Card* add_card_to_block(Card *block, const char val[2], int hidden){
+    Card *head = block;
+
+
+
+    while (block->next != NULL) {
+        block = block->next;
+    }
+
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+
+    return head;
+
+}
+
+
 
 
 
@@ -79,13 +115,10 @@ void display_card_deck(Blocks *board){
 
 void free_mem(Card *mem) {
 
-
-
     while (mem != NULL) {
         Card *temp = mem;
         mem = mem->next;
         free(temp);
-
     }
 
 }
@@ -118,21 +151,6 @@ void initialize_card_deck() {
 
 
 
-void add_card_to_block(Card *block, const char val[2], int hidden){
-    Card *temp = block;
-
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
-
-
-
-}
 
 
 
