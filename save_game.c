@@ -1,7 +1,8 @@
 //
 // Created by MD. Zahed on 23/04/2022.
 //
-#include "blocks.c"
+#include <stdio.h>
+#include <string.h>
 
 void save_game_board_helper(Card *block, FILE *fpointer) {
     while (block != NULL) {
@@ -17,6 +18,7 @@ void save_game_board_helper(Card *block, FILE *fpointer) {
 
         block = block->next;
     }
+    fprintf(fpointer, "\n");
 }
 
 
@@ -28,14 +30,31 @@ void save_game_board(Game_board *board) {
 
 
     Card *block = board->block1;
+    save_game_board_helper(block, fpointer);
+
+    block = board->block2;
+    save_game_board_helper(block, fpointer);
+
+    block = board->block3;
+    save_game_board_helper(block, fpointer);
+
+    block = board->block4;
+    save_game_board_helper(block, fpointer);
+
+    block = board->block5;
+    save_game_board_helper(block, fpointer);
 
 
+    block = board->block6;
+    save_game_board_helper(block, fpointer);
+
+    block = board->block7;
+    save_game_board_helper(block, fpointer);
 
 
 
 
     fclose(fpointer);
 }
-
 
 
