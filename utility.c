@@ -15,7 +15,7 @@ Card *last_added_card_deck;
 void add_node(const char val[2], int hidden);
 void add_card_to_block(Card **block, const char val[2], int hidden);
 void free_mem(Card *mem);
-void switch_block(int i, Blocks **board, Card *new_block_head);
+
 
 
 
@@ -43,7 +43,7 @@ Blocks * initialize_game_board(Card *cards){
             Card *newC = malloc(sizeof(Card));
             newC->suites_value[0] = temp->suites_value[0];
             newC->suites_value[1] = temp->suites_value[1];
-            newC->face_up = 0;
+            newC->face_up = temp->face_up;
             newC->next = NULL;
 
             temp = temp->next;
@@ -97,43 +97,10 @@ void add_card_to_block(Card **block, const char val[2], int hidden){
 
 
 
-void helper_display_card_deck(Card *block, int block_num) {
-
-
-    Card *temp = block;
-    printf("Block: %d \t\t", block_num);
-    while (temp != NULL) {
-        printf("%s, %d\t", temp->suites_value, temp->face_up);
-        temp = temp->next;
-    }
-
-    printf("\n");
-}
-
-
-void display_card_deck(Blocks *board){
-    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
 
 
 
 
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-
-
-    helper_display_card_deck(board->block1, 1);
-    helper_display_card_deck(board->block2, 2);
-    helper_display_card_deck(board->block3, 3);
-    helper_display_card_deck(board->block4, 4);
-    helper_display_card_deck(board->block5, 5);
-    helper_display_card_deck(board->block6, 6);
-    helper_display_card_deck(board->block7, 7);
-
-
-
-}
 
 
 
@@ -157,7 +124,7 @@ void initialize_card_deck() {
         for (int j = 0; j < sizeof(values); ++j) {
             val[0] = suites[i];
             val[1] = values[j];
-            add_node(val, 0);
+            add_node(val, 1);
         }
 
     }
@@ -193,9 +160,6 @@ void free_game_board(Blocks **board) {
     free_mem_block(&((*board)->block5));
     free_mem_block(&((*board)->block6));
     free_mem_block(&((*board)->block7));
-
-
-
 
 
 }
