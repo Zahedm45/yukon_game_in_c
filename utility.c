@@ -185,13 +185,17 @@ void add_node(const char val[2], int hidden) {
 
 void free_game_board(Blocks **board) {
 
+    free_mem_block(&((*board)->block1));
+
+    free_mem_block(&((*board)->block2));
+    free_mem_block(&((*board)->block3));
     free_mem_block(&((*board)->block4));
-/*    free_mem_block(board->block2);
-    free_mem_block(board->block3);
-    free_mem_block(board->block4);
-    free_mem_block(board->block5);
-    free_mem_block(board->block6);
-    free_mem_block(board->block7);*/
+    free_mem_block(&((*board)->block5));
+    free_mem_block(&((*board)->block6));
+    free_mem_block(&((*board)->block7));
+
+
+
 
 
 }
