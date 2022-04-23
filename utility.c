@@ -72,42 +72,7 @@ Blocks * initialize_game_board(Card *cards){
 }
 
 
-void switch_block(int i, Blocks **board, Card *new_block_head) {
 
-    switch (i) {
-        case 0:
-            (*board)->block1 = new_block_head;
-            break;
-
-        case 1:
-            (*board)->block2 = new_block_head;
-            break;
-
-        case 2:
-            (*board)->block3 = new_block_head;
-            break;
-
-        case 3:
-            (*board)->block4 = new_block_head;
-            break;
-
-        case 4:
-            (*board)->block5 = new_block_head;
-            break;
-
-        case 5:
-            (*board)->block6 = new_block_head;
-            break;
-        case 6:
-            (*board)->block7 = new_block_head;
-            break;
-
-        default:
-            printf("not found\n");
-    }
-
-
-}
 
 
 
@@ -171,16 +136,7 @@ void display_card_deck(Blocks *board){
 }
 
 
-void free_mem(Card *mem) {
-    Card *temp;
-    while (mem != NULL) {
-        printf("heloooo");
-        temp = mem;
-        mem = mem->next;
-        free(temp);
-    }
 
-}
 
 
 
@@ -210,9 +166,6 @@ void initialize_card_deck() {
 
 
 
-
-
-
 void add_node(const char val[2], int hidden) {
     Card *newC = malloc(sizeof(Card));
     newC->suites_value[0] = val[0];
@@ -230,19 +183,23 @@ void add_node(const char val[2], int hidden) {
 
 
 
+void free_game_board(Blocks **board) {
+
+    free_mem_block(&((*board)->block4));
+/*    free_mem_block(board->block2);
+    free_mem_block(board->block3);
+    free_mem_block(board->block4);
+    free_mem_block(board->block5);
+    free_mem_block(board->block6);
+    free_mem_block(board->block7);*/
 
 
-
-
-
-
-
-void print_out() {
-
-    Card *temp = card_deck;
-    while (temp != NULL) {
-        printf("%s, %d\n", temp->suites_value, temp->face_up);
-        temp = temp->next;
-    }
 }
+
+
+
+
+
+
+
 

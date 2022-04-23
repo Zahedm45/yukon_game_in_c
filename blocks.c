@@ -33,5 +33,70 @@ typedef struct Blocks{
 
 
 
+void switch_block(int i, Blocks **board, Card *new_block_head) {
+
+    switch (i) {
+        case 0:
+            (*board)->block1 = new_block_head;
+            break;
+
+        case 1:
+            (*board)->block2 = new_block_head;
+            break;
+
+        case 2:
+            (*board)->block3 = new_block_head;
+            break;
+
+        case 3:
+            (*board)->block4 = new_block_head;
+            break;
+
+        case 4:
+            (*board)->block5 = new_block_head;
+            break;
+
+        case 5:
+            (*board)->block6 = new_block_head;
+            break;
+        case 6:
+            (*board)->block7 = new_block_head;
+            break;
+
+        default:
+            printf("not found\n");
+    }
+
+
+}
+
+
+
+
+void print_out(Card *card_deck) {
+
+    Card *temp = card_deck;
+    while (temp != NULL) {
+        printf("%s, %d\n", temp->suites_value, temp->face_up);
+        temp = temp->next;
+    }
+}
+
+
+void free_mem_block(Card **mem) {
+    Card *temp;
+
+
+    while (*mem != NULL) {
+        temp = *mem;
+        *mem = (*mem)->next;
+        free(temp);
+    }
+
+}
+
+
+
+
 
 
