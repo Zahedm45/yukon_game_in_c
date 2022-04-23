@@ -6,7 +6,7 @@
 
 
 typedef struct Card {
-    char suites_value[2];
+    char suites_value[3];
     int face_up;
     struct Card* next;
 
