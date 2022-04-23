@@ -15,6 +15,7 @@ Card *last_added_card_deck;
 void add_node(const char val[2], int hidden);
 void add_card_to_block(Card **block, const char val[2], int hidden);
 void free_mem(Card *mem);
+void switch_block(int i, Blocks **board, Card *new_block_head);
 
 
 
@@ -57,16 +58,9 @@ Blocks * initialize_game_board(Card *cards){
 
             }
 
-
-
-
-
-
-
         }
 
-
-        new_board->block1 = new_block_head;
+        switch_block(i, &new_board, new_block_head);
 
 
         if (i == 0) {
@@ -77,6 +71,43 @@ Blocks * initialize_game_board(Card *cards){
     return new_board;
 }
 
+
+void switch_block(int i, Blocks **board, Card *new_block_head) {
+
+    switch (i) {
+        case 0:
+            (*board)->block1 = new_block_head;
+            break;
+
+        case 1:
+            (*board)->block2 = new_block_head;
+            break;
+
+        case 2:
+            (*board)->block3 = new_block_head;
+            break;
+
+        case 3:
+            (*board)->block4 = new_block_head;
+            break;
+
+        case 4:
+            (*board)->block5 = new_block_head;
+            break;
+
+        case 5:
+            (*board)->block6 = new_block_head;
+            break;
+        case 6:
+            (*board)->block7 = new_block_head;
+            break;
+
+        default:
+            printf("not found\n");
+    }
+
+
+}
 
 
 
@@ -101,7 +132,18 @@ void add_card_to_block(Card **block, const char val[2], int hidden){
 
 
 
+void helper_display_card_deck(Card *block, int block_num) {
 
+
+    Card *temp = block;
+    printf("Block: %d \t\t", block_num);
+    while (temp != NULL) {
+        printf("%s, %d\t", temp->suites_value, temp->face_up);
+        temp = temp->next;
+    }
+
+    printf("\n");
+}
 
 
 void display_card_deck(Blocks *board){
@@ -115,18 +157,15 @@ void display_card_deck(Blocks *board){
     printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
     printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
 
-    for (int i = 0; i < 7; ++i) {
 
-        Card *temp = board->block1;
-        printf("Block: %d ", i);
-        while (temp != NULL) {
-            printf("%s, %d\t", temp->suites_value, temp->face_up);
-            temp = temp->next;
-        }
+    helper_display_card_deck(board->block1, 1);
+    helper_display_card_deck(board->block2, 2);
+    helper_display_card_deck(board->block3, 3);
+    helper_display_card_deck(board->block4, 4);
+    helper_display_card_deck(board->block5, 5);
+    helper_display_card_deck(board->block6, 6);
+    helper_display_card_deck(board->block7, 7);
 
-        printf("\n");
-
-    }
 
 
 }
