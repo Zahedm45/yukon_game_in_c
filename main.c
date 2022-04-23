@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utility.c"
 
-Blocks *game_board;
+Game_board *game_board;
 
 int main() {
 
@@ -14,12 +14,11 @@ int main() {
 
     //print_out();
     game_board = initialize_game_board(card_deck);
-    print_card_deck(card_deck);
-
+    set_foundation(&game_board, 1, "H2");
     display_card_deck(game_board);
 
-    free_game_board(&game_board);
-    display_card_deck(game_board);
+    //free_game_board(&game_board);
+    //display_card_deck(game_board);
     return 0;
 }
 

@@ -14,7 +14,7 @@ typedef struct Card {
 
 
 
-typedef struct Blocks{
+typedef struct Game_board{
     Card *block1;
     Card *block2;
     Card *block3;
@@ -29,15 +29,15 @@ typedef struct Blocks{
     char foundation3[2];
     char foundation4[2];
 
-}Blocks;
+}Game_board;
 
 
 
 
-void switch_block(int i, Blocks **board, Card *new_block_head);
+void switch_block(int i, Game_board **board, Card *new_block_head);
 
 
-void switch_block(int i, Blocks **board, Card *new_block_head) {
+void switch_block(int i, Game_board **board, Card *new_block_head) {
 
     switch (i) {
         case 0:
@@ -151,7 +151,7 @@ void foundation_display(int foundation_num, char *msg) {
 }
 
 
-void display_card_deck(Blocks *board){
+void display_card_deck(Game_board *board){
     printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
 
 
@@ -254,11 +254,8 @@ void display_card_deck(Blocks *board){
         //printf("%s\t\t%s\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n", val_b1, val_b2);
 
         char foundation[] = "F1";
-        //printf(" %s ", foundation);
-
         foundation_display(counter, foundation);
 
-        //printf(" %s ", foundation);
         printf("%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t\t[]\t %s \n", val_b1, val_b2, val_b3, val_b4, val_b5, val_b6, val_b7, foundation);
 
         counter++;
@@ -266,26 +263,14 @@ void display_card_deck(Blocks *board){
 
 
 
-/*    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n");*/
 
-
-
-
-
-
-
-    helper_display_card_deck(board->block1, 1);
+/*    helper_display_card_deck(board->block1, 1);
     helper_display_card_deck(board->block2, 2);
     helper_display_card_deck(board->block3, 3);
     helper_display_card_deck(board->block4, 4);
     helper_display_card_deck(board->block5, 5);
     helper_display_card_deck(board->block6, 6);
     helper_display_card_deck(board->block7, 7);
-
-
-
-
+    */
 }
 

@@ -15,14 +15,18 @@ Card *last_added_card_deck;
 void add_node(const char val[2], int hidden);
 void add_card_to_block(Card **block, const char val[2], int hidden);
 void free_mem(Card *mem);
+void initialize_card_deck();
+Game_board * initialize_game_board(Card *cards);
+void free_game_board(Game_board **board);
+void set_foundation(Game_board **game_board, int foundation_num, char card[]);
 
 
 
 
-Blocks * initialize_game_board(Card *cards){
+Game_board * initialize_game_board(Card *cards){
 
     Card *temp = cards;
-    Blocks *new_board = malloc(sizeof(Blocks));
+    Game_board *new_board = malloc(sizeof(Game_board));
 
     int j = 0;
     for (int i = 0; i < 7; ++i) {
@@ -79,8 +83,6 @@ Blocks * initialize_game_board(Card *cards){
 void add_card_to_block(Card **block, const char val[2], int hidden){
     Card **temp = block;
 
-
-
     while ((*temp)->next!= NULL) {
         *temp = (*temp)->next;
     }
@@ -94,16 +96,6 @@ void add_card_to_block(Card **block, const char val[2], int hidden){
     *temp = newC;
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -150,7 +142,7 @@ void add_node(const char val[2], int hidden) {
 
 
 
-void free_game_board(Blocks **board) {
+void free_game_board(Game_board **board) {
 
     free_mem_block(&((*board)->block1));
 
@@ -165,6 +157,34 @@ void free_game_board(Blocks **board) {
 }
 
 
+void set_foundation(Game_board **game_board, int foundation_num, char card[]){
+    switch (foundation_num) {
+        case 1:
+            (*game_board)->foundation1[0] = card[0];
+            (*game_board)->foundation1[1] = card[1];
+            break;
+
+        case 2:
+            (*game_board)->foundation2[0] = card[0];
+            (*game_board)->foundation2[1] = card[1];
+            break;
+
+        case 3:
+            (*game_board)->foundation3[0] = card[0];
+            (*game_board)->foundation3[1] = card[1];
+            break;
+
+        case 4:
+            (*game_board)->foundation4[0] = card[0];
+            (*game_board)->foundation4[1] = card[1];
+            break;
+
+        default:
+            ;
+    }
+
+
+}
 
 
 
