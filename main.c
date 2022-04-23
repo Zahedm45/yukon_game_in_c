@@ -9,7 +9,7 @@ int main() {
 /*    initialize_card_deck();
     print_out();*/
 
-
+    starting_point();
     initialize_card_deck();
 
     //print_out();

@@ -157,7 +157,7 @@ void foundation_display(Game_board *board, int foundation_num, char *f_name, cha
 
 
 void display_card_deck(Game_board *board){
-    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n");
+    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n\n");
 
 
     char *val_b1;
@@ -267,7 +267,10 @@ void display_card_deck(Game_board *board){
 
         //printf("foundation: %s\n", foundation_card);
 
-        printf("%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t\t%s\t %s \n", val_b1, val_b2, val_b3, val_b4, val_b5, val_b6, val_b7,foundation_card, foundation_name);
+
+
+
+        printf("%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t\t%s\t%s\n", val_b1, val_b2, val_b3, val_b4, val_b5, val_b6, val_b7,foundation_card, foundation_name);
 
         counter++;
     }
@@ -285,3 +288,12 @@ void display_card_deck(Game_board *board){
     */
 }
 
+
+void starting_point() {
+    printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n\n");
+    for (int i = 0; i < 4; ++i) {
+        printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n\n");
+    }
+
+
+}
