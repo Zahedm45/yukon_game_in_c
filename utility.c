@@ -128,7 +128,7 @@ void initialize_card_deck() {
         for (int j = 0; j < sizeof(values); ++j) {
             val[0] = suites[i];
             val[1] = values[j];
-            add_node(val, 1);
+            add_node(val, 0);
         }
 
     }
