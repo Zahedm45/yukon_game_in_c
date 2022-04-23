@@ -13,7 +13,7 @@ Card *last_added_card_deck;
 
 
 void add_node(const char val[2], int hidden);
-Card * add_card_to_block(Card *block, const char val[2], int hidden);
+void add_card_to_block(Card **block, const char val[2], int hidden);
 void free_mem(Card *mem);
 
 
@@ -26,7 +26,8 @@ Blocks * initialize_game_board(Card *cards){
     int j = 0;
     for (int i = 0; i < 7; ++i) {
 
-        Card *new_block = malloc(sizeof(Card));
+        Card *new_block_head = NULL;
+        Card *new_block_last_added;
 
         j++;
         for (int k = 0; k <j; ++k) {
@@ -35,21 +36,38 @@ Blocks * initialize_game_board(Card *cards){
                 exit(0);
             }
 
-            char value[2];
-            value[0] =  temp->suites_value[0];
-            value[1] =  temp->suites_value[1];
 
-            //add_card_to_block(&new_block, value, temp->face_up);
 
-            new_block = add_card_to_block(new_block, "hd", 1);
+
+            Card *newC = malloc(sizeof(Card));
+            newC->suites_value[0] = temp->suites_value[0];
+            newC->suites_value[1] = temp->suites_value[1];
+            newC->face_up = 0;
+            newC->next = NULL;
 
             temp = temp->next;
+
+            if (new_block_head == NULL) {
+                new_block_head = new_block_last_added = newC;
+
+
+            } else {
+                new_block_last_added->next = newC;
+                new_block_last_added = new_block_last_added->next;
+
+            }
+
+
+
+
+
 
 
         }
 
-        new_board->blocks[i] = *new_block;
-//        free_mem(new_block);
+
+        new_board->block1 = new_block_head;
+
 
         if (i == 0) {
             j = 5;
@@ -62,21 +80,22 @@ Blocks * initialize_game_board(Card *cards){
 
 
 
-Card* add_card_to_block(Card *block, const char val[2], int hidden){
-    Card *head = block;
+void add_card_to_block(Card **block, const char val[2], int hidden){
+    Card **temp = block;
 
 
 
-    while (block->next != NULL) {
-        block = block->next;
+    while ((*temp)->next!= NULL) {
+        *temp = (*temp)->next;
     }
 
     Card *newC = malloc(sizeof(Card));
     newC->suites_value[0] = val[0];
     newC->suites_value[1] = val[1];
     newC->face_up = hidden;
+    newC->next = NULL;
 
-    return head;
+    *temp = newC;
 
 }
 
@@ -98,7 +117,7 @@ void display_card_deck(Blocks *board){
 
     for (int i = 0; i < 7; ++i) {
 
-        Card *temp = &board->blocks[i];
+        Card *temp = board->block1;
         printf("Block: %d ", i);
         while (temp != NULL) {
             printf("%s, %d\t", temp->suites_value, temp->face_up);
@@ -114,9 +133,10 @@ void display_card_deck(Blocks *board){
 
 
 void free_mem(Card *mem) {
-
+    Card *temp;
     while (mem != NULL) {
-        Card *temp = mem;
+        printf("heloooo");
+        temp = mem;
         mem = mem->next;
         free(temp);
     }
