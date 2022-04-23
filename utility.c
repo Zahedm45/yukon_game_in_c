@@ -117,7 +117,7 @@ void add_card_to_block(Card **block, const char val[2], int hidden){
 
 
 
-void initialize_card_deck() {
+void initialize_card_deck(int hidden) {
 
     char values[13] = {'A' ,'2', '3', '4', '5', '6', '7', '8', '9',
                        'T', 'J', 'Q', 'K'};
@@ -129,7 +129,7 @@ void initialize_card_deck() {
         for (int j = 0; j < sizeof(values); ++j) {
             val[0] = suites[i];
             val[1] = values[j];
-            add_node(val, 0);
+            add_node(val, hidden);
         }
 
     }
