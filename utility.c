@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "blocks.c"
 
 
@@ -71,6 +72,17 @@ Game_board * initialize_game_board(Card *cards){
             j = 5;
         }
     }
+
+
+
+    strcpy(new_board->foundation1, "[]");
+    strcpy(new_board->foundation2, "[]");
+    strcpy(new_board->foundation3, "[]");
+    strcpy(new_board->foundation4, "[]");
+
+
+
+
 
     return new_board;
 }

@@ -15,6 +15,8 @@ int main() {
     //print_out();
     game_board = initialize_game_board(card_deck);
     set_foundation(&game_board, 1, "H2");
+    set_foundation(&game_board, 4, "H1");
+
     display_card_deck(game_board);
 
     //free_game_board(&game_board);

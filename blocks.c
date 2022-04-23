@@ -24,10 +24,10 @@ typedef struct Game_board{
     Card *block7;
 
 
-    char foundation1[2];
-    char foundation2[2];
-    char foundation3[2];
-    char foundation4[2];
+    char foundation1[3];
+    char foundation2[3];
+    char foundation3[3];
+    char foundation4[3];
 
 }Game_board;
 
@@ -35,7 +35,7 @@ typedef struct Game_board{
 
 
 void switch_block(int i, Game_board **board, Card *new_block_head);
-
+void foundation_display(Game_board *board, int foundation_num, char *f_name, char *f_card);
 
 void switch_block(int i, Game_board **board, Card *new_block_head) {
 
@@ -125,27 +125,32 @@ void helper_display_card_deck(Card *block, int block_num) {
 }
 
 
-void foundation_display(int foundation_num, char *msg) {
+void foundation_display(Game_board *board, int foundation_num, char *f_name, char *f_card) {
 
     switch (foundation_num) {
         case 0:
+            stpcpy(f_card, board->foundation1);
             break;
 
         case 1:
-            msg[1] = '2';
+            f_name[1] = '2';
+            stpcpy(f_card, board->foundation2);
             break;
 
         case 2:
-            msg[1] = '3';
+            f_name[1] = '3';
+            stpcpy(f_card, board->foundation3);
             break;
         case 3:
-            msg[1] = '4';
+            f_name[1] = '4';
+            stpcpy(f_card, board->foundation4);
             break;
 
         default:
-            msg[0] = ' ';
-            msg[1] = ' ';
-            ;
+            f_name[0] = ' ';
+            f_name[1] = ' ';
+            stpcpy(f_card, "");
+
     }
 
 }
@@ -253,10 +258,16 @@ void display_card_deck(Game_board *board){
 
         //printf("%s\t\t%s\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n", val_b1, val_b2);
 
-        char foundation[] = "F1";
-        foundation_display(counter, foundation);
+        char foundation_name[] = "F1";
+        char foundation_card[3];
+        //printf("before foundation: %s\n", foundation_card);
 
-        printf("%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t\t[]\t %s \n", val_b1, val_b2, val_b3, val_b4, val_b5, val_b6, val_b7, foundation);
+
+        foundation_display(board, counter, foundation_name, foundation_card);
+
+        //printf("foundation: %s\n", foundation_card);
+
+        printf("%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t\t%s\t %s \n", val_b1, val_b2, val_b3, val_b4, val_b5, val_b6, val_b7,foundation_card, foundation_name);
 
         counter++;
     }
