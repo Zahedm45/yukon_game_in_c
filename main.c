@@ -9,7 +9,7 @@ int main() {
     starting_point();
     initialize_card_deck(1);
     game_board = initialize_game_board(card_deck);
-    display_card_deck(game_board);
+    display_game_board(game_board);
     save_game_board(game_board);
 
     return 0;

@@ -156,7 +156,7 @@ void foundation_display(Game_board *board, int foundation_num, char *f_name, cha
 }
 
 
-void display_card_deck(Game_board *board){
+void display_game_board(Game_board *board){
     printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n\n");
 
 
@@ -276,8 +276,7 @@ void display_card_deck(Game_board *board){
     }
 
 
-
-
+    printf("\n");
 /*    helper_display_card_deck(board->block1, 1);
     helper_display_card_deck(board->block2, 2);
     helper_display_card_deck(board->block3, 3);
@@ -295,5 +294,6 @@ void starting_point() {
         printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n\n");
     }
 
+    printf("\n");
 
 }
