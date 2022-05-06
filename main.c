@@ -21,7 +21,7 @@ int main(void) {
     save_game_board_on_pc(game_board);
 
 
-    open_game_board_from_pc("game_board.text");
+    open_game_board_from_pc("game_board");
 
 
     // Main game loop

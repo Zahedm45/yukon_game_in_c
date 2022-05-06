@@ -53,6 +53,17 @@ void save_game_board_on_pc(Game_board *board) {
     save_game_board_helper(block, fpointer);
 
 
+    fprintf(fpointer, "foundation\n");
+
+    fprintf(fpointer, "%s\n", board->foundation1);
+    fprintf(fpointer, "%s\n", board->foundation2);
+    fprintf(fpointer, "%s\n", board->foundation3);
+    fprintf(fpointer, "%s\n", board->foundation4);
+
+
+
+
+
 
 
     fclose(fpointer);
@@ -62,8 +73,12 @@ void save_game_board_on_pc(Game_board *board) {
 
 void open_game_board_from_pc(char board_name[]) {
 
+    char with_format[70];
 
-    FILE *file_pointer = fopen(board_name, "r");
+    stpcpy(with_format, board_name);
+    strcat(with_format, ".text");
+
+    FILE *file_pointer = fopen(with_format, "r");
 
     char line[200];
     while (!feof(file_pointer)) {
