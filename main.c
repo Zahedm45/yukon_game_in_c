@@ -13,7 +13,7 @@ int main(void) {
 
     // Initialize game board
     starting_point();
-    initialize_card_deck(0);
+    initialize_card_deck(1);
     game_board = initialize_game_board(card_deck);
     set_foundation(&game_board, 1, "C2");
 
@@ -21,7 +21,8 @@ int main(void) {
     save_game_board_on_pc(game_board);
 
 
-    open_game_board_from_pc("game_board");
+    game_board = open_game_board_from_pc("game_board");
+    display_game_board(game_board);
 
 
     // Main game loop
