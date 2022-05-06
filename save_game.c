@@ -119,6 +119,22 @@ Card *single_line(FILE *fPointer){
     return block_head;
 }
 
+char * foundation_from_file(FILE *fPointer) {
+
+    char *fv = malloc(sizeof(char));
+    char i;
+
+    while (!feof(fPointer)) {
+        fgets(fv, 3, fPointer);
+        i = fv[0];
+
+        if (i == 'C' || i == 'H' || i == 'D' || i == 'S' || i == '[') {
+            return fv;
+        }
+    }
+    return NULL;
+}
+
 Game_board *open_game_board_from_pc(char board_name[]) {
 
     char with_format[70];
@@ -164,6 +180,32 @@ Game_board *open_game_board_from_pc(char board_name[]) {
             gameBoard->block7 = single_line(file_pointer);
         }
 
+        else if (strcmp(line, "founda") == 0) {
+
+            char *f1 = foundation_from_file(file_pointer);
+            strcpy(gameBoard->foundation1, f1);
+
+            char *f2 = foundation_from_file(file_pointer);
+            strcpy(gameBoard->foundation2, f2);
+
+            char *f3 = foundation_from_file(file_pointer);
+            strcpy(gameBoard->foundation3, f3);
+
+
+            char *f4 = foundation_from_file(file_pointer);
+            strcpy(gameBoard->foundation4, f4);
+
+
+
+            puts(gameBoard->foundation4);
+
+
+
+/*            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation2));
+            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation3));
+            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation4));*/
+            break;
+        }
 
     }
     fclose(file_pointer);
