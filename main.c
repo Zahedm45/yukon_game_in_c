@@ -9,8 +9,8 @@ void replace_char(char *string, char new);
 
 int main() {
 
-    char input[20];
-    char last_command[20] = "";
+    char input[50];
+    char last_command[60] = "";
     char message_output[70] = "";
     int length = 2;
 
