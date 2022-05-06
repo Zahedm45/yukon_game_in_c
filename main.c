@@ -20,10 +20,10 @@ int main(void) {
 
 
     set_foundation(&game_board, 1, "C2");
-    save_game_board_on_pc(game_board);
+    save_game_board_on_pc(game_board, "hello_board");
 
 
-    game_board = open_game_board_from_pc("game_board");
+    game_board = open_game_board_from_pc("hello_board");
     display_game_board(game_board);
 
 

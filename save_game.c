@@ -28,10 +28,14 @@ void save_game_board_helper(Card *block, FILE *fpointer, char block_num[]) {
 
 
 
-void save_game_board_on_pc(Game_board *board) {
-    FILE *fpointer;
-    fpointer = fopen("game_board.text", "w");
+void save_game_board_on_pc(Game_board *board, char board_name[]) {
 
+    char with_format[70];
+    stpcpy(with_format, board_name);
+    strcat(with_format, ".text");
+
+    FILE *fpointer;
+    fpointer = fopen(with_format, "w");
 
 
     Card *block = board->block1;
