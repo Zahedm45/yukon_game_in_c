@@ -41,8 +41,6 @@ Game_board * initialize_game_board(Card *cards){
 
 
 
-
-
     int i = 0;
     while (temp != NULL) {
 
@@ -79,12 +77,6 @@ Game_board * initialize_game_board(Card *cards){
     }
 
 
-/*    new_board->block3 = block3;
-    new_board->block4 = block4;
-    new_board->block5 = block5;
-    new_board->block6 = block6;
-    new_board->block7 = block7;*/
-
 
 
     strcpy(new_board->foundation1, "[]");
@@ -107,20 +99,28 @@ Game_board * initialize_game_board(Card *cards){
 void add_card_to_block(Card *block, const char val[2], int hidden){
 
 
+    if (strcmp(block->suites_value, "") == 0) {
+        block->suites_value[0] = val[0];
+        block->suites_value[1] = val[1];
+        block->face_up = hidden;
 
-    Card *temp = block;
+    } else {
+        Card *temp = block;
 
-    while (temp->next != NULL) {
-        temp = temp->next;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+
+        Card *newC = malloc(sizeof(Card));
+        newC->suites_value[0] = val[0];
+        newC->suites_value[1] = val[1];
+        newC->face_up = hidden;
+        newC->next = NULL;
+
+        temp->next = newC;
     }
 
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
-    newC->next = NULL;
 
-    temp->next = newC;
 
 
 

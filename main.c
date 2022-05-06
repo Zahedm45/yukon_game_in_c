@@ -45,7 +45,7 @@ int main() {
                 game_board = load_game_board_from_pc(optional_command);
 
             } else {
-                initialize_card_deck(0);
+                initialize_card_deck(-1);
                 game_board = initialize_game_board(card_deck);
 
             }

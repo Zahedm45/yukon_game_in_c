@@ -102,12 +102,15 @@ void free_mem_block(Card **mem) {
 
 
 void helper_func_display_card_deck(int face_up, char **val_b, char else_val[]){
-    if (face_up == 0) {
+    if (face_up == -1) {
         *val_b = "[]";
     } else if (face_up == 1) {
         *val_b = else_val;
 
-    } else *val_b = " ";
+    } else {
+        *val_b = " ";
+        //printf(" from %d", face_up);
+    }
 }
 
 
@@ -180,7 +183,7 @@ void display_game_board(Game_board *board){
 
     Card *null_block = malloc(sizeof(Card));
     null_block->next = NULL;
-    null_block->face_up = -1;
+    null_block->face_up = 0;
 
 
     int counter = 0;
@@ -234,6 +237,7 @@ void display_game_board(Game_board *board){
         helper_func_display_card_deck(face_up_b5, &val_b5, block5->suites_value);
         if (block5->next != NULL) {
             block5 = block5->next;
+            continue_loop = 1;
 
         } else block5 = null_block;
 
