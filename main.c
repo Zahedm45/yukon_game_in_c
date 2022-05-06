@@ -45,11 +45,14 @@ int main() {
                 game_board = load_game_board_from_pc(optional_command);
 
             } else {
-                initialize_card_deck(-1);
-                game_board = initialize_game_board(card_deck);
+                if (game_board == NULL) {
+                    puts("game board");
+                    initialize_card_deck(-1);
+                    game_board = initialize_game_board(card_deck);
+                }
+
 
             }
-            print_card_deck(card_deck);
             display_game_board(game_board);
             strcpy(last_command, input);
             strcpy(message_output, "OK");
@@ -86,11 +89,6 @@ int main() {
         }
 
         else {
-/*            add_card_to_block(game_board->block1, "H4", 1);
-            add_card_to_block(game_board->block1, "H3", 1);
-            add_card_to_block(game_board->block2, "H5", 1);
-            display_game_board(game_board);*/
-
             strcpy(message_output, "Unknown command");
             strcpy(last_command, "INVALID COMMAND EXECUTED");
         }

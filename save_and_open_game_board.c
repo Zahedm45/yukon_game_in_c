@@ -196,8 +196,6 @@ Game_board *load_game_board_from_pc(char board_name[]) {
     }
     fclose(file_pointer);
 
-    //printf("hello %d\n", gameBoard->block1->face_up);
-
     return gameBoard;
 
 }
