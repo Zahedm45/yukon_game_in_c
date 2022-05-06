@@ -9,7 +9,7 @@ void replace_char(char *string, char new);
 
 int main() {
 
-    char input[2];
+    char input[20];
     char last_command[20] = "";
     char message_output[70] = "";
     int length = 2;
