@@ -146,7 +146,7 @@ void add_node(const char val[2], int hidden) {
 
     if (card_deck != NULL) {
         last_added_card_deck->next = newC;
-        last_added_card_deck = last_added_card_deck->next;
+        last_added_card_deck = last_added_card_deck->next
 
     } else card_deck = last_added_card_deck = newC;
 
