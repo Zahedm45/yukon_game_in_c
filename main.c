@@ -1,40 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "utility.c"
+#include "game_board.c"
 #include <string.h>
-
+#include "utils.c"
+#define MAX_BUFFER 60
 Game_board *game_board;
 
-void replace_char(char *string, char new);
 
 int main() {
 
-    char input[50];
+    char input[MAX_BUFFER];
+    char *command = "";
+    char *optional_command;
     char last_command[60] = "";
     char message_output[70] = "";
-    int length = 2;
+
 
     // Initialize game board
     starting_point();
-
-   // save_game_board(game_board);
 
 
 
 
     // Main game loop
-    while(strcmp(input, "stop") != 0) {
+    while(strcmp(command, "stop") != 0) {
 
         printf("LAST Command: ");
         printf("%s \n", last_command);
         printf("Message: ");
         printf("%s \n", message_output);
         printf("INPUT > \t");
-        scanf("%s", &input);
+        fgets(input, MAX_BUFFER, stdin);
         printf("\n");
 
-        if(strcmp(input, "LD") == 0) {
-            strcpy(last_command, input);
+        command = strtok(input, " ");
+        optional_command = strtok(NULL, " ");
+
+
+
+
+        if(strncmp(command, "LD", 2) == 0) {
+            strcpy(last_command, command);
             strcpy(message_output, "OK");
             initialize_card_deck(0);
             game_board = initialize_game_board(card_deck);
@@ -42,22 +48,41 @@ int main() {
 
 
             //printf("You entered %*.*s\n", length, length, input);
-        } else if(strcmp(input, "SW") == 0) {
+        } else if(strncmp(command, "SW", 2) == 0) {
 
             if (game_board == NULL){
                 strcpy(message_output, "Initialize a game board by typing LD");
                 //puts("Initialize a game board by typing LD");
 
             } else {
-                strcpy(last_command, input);
+                strcpy(last_command, command);
                 strcpy(message_output, "OK");
                 set_cards_visible(&game_board);
                 display_game_board(game_board);
             }
 
+        } else if  (strncmp(command, "SD", 2) == 0) {
+
+            if (game_board == NULL) {
+                strcpy(message_output, "Initialize a game board by typing LD");
+
+            } else {
+                if (optional_command == NULL) {
+                    strcpy(message_output, "Board name");
+
+
+
+                } else {
+                    save_game_board_on_pc( game_board, optional_command);
+                    strcpy(last_command, command);
+                    strcpy(message_output, "OK");
+                }
+
+            }
 
 
         }
+
         else {
             strcpy(message_output, "Unknown command");
             strcpy(last_command, "INVALID COMMAND EXECUTED");
