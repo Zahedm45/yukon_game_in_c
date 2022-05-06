@@ -10,6 +10,7 @@ void replace_char(char *string, char new);
 int main() {
 
     char input[2];
+    char last_command[20] = "";
     char message_output[20] = "";
     int length = 2;
 
@@ -24,7 +25,8 @@ int main() {
     // Main game loop
     while(strcmp(input, "stop") != 0) {
 
-        printf("LAST Command: \n");
+        printf("LAST Command: ");
+        printf("%s \n", last_command);
         printf("Message: ");
         printf("%s \n", message_output);
         printf("INPUT > \t");
@@ -32,6 +34,7 @@ int main() {
         printf("\n");
 
         if(strcmp(input, "LD") == 0) {
+            strcpy(last_command, input);
             strcpy(message_output, "OK");
             initialize_card_deck(0);
             game_board = initialize_game_board(card_deck);
@@ -42,9 +45,12 @@ int main() {
         } else if(strcmp(input, "SW") == 0) {
 
             if (game_board == NULL){
-                puts("Initialize a game board by typing LD");
+                strcpy(message_output, "Initialize a game board by typing LD");
+                //puts("Initialize a game board by typing LD");
 
             } else {
+                strcpy(last_command, input);
+                strcpy(message_output, "OK");
                 set_cards_visible(&game_board);
                 display_game_board(game_board);
             }
