@@ -27,28 +27,15 @@ int main() {
         printf("INPUT > \t");
         scanf("%s", &input);
 
-        printf("You entered %*.*s\n", length, length, input);
+        if(strcmp(input, "LD") == 0) {
+            printf("You entered %*.*s\n", length, length, input);
+        } else {
+            printf("Unknown command\n");
+        }
+
     }
 
 
-
-    // Main game loop
-    while(strcmp(input, "stop") != 0) {
-
-
-        printf("LAST Command: \n");
-        printf("Message: \n");
-        printf("INPUT > \t");
-        scanf("%s", &input);
-
-
-
-        printf("You entered %*.*s\n", length, length, input);
-    }
-
-
-
-    return 0;
 }
 
 
