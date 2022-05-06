@@ -16,7 +16,6 @@ Card *last_added_card_deck;
 
 void add_node(const char val[2], int hidden);
 void add_card_to_block(Card *block, const char val[2], int hidden);
-void free_mem(Card *mem);
 void initialize_card_deck();
 Game_board * initialize_game_board(Card *cards);
 void free_game_board(Game_board **board);
@@ -144,7 +143,22 @@ void add_card_to_block(Card *block, const char val[2], int hidden){
 
 
 
+/*void free_card_deck(){
+    Card *temp;
 
+    while (card_deck != NULL) {
+        temp = card_deck;
+        card_deck = card_deck->next;
+        free(temp);
+    }
+
+    if (last_added_card_deck != NULL) {
+        free(last_added_card_deck);
+    }
+
+    if (card_deck != NULL) free(card_deck);
+
+}*/
 
 
 
@@ -155,6 +169,14 @@ void initialize_card_deck(int hidden) {
     char suites[4] = {'C', 'D', 'H', 'S'};
 
     char val[2];
+    /**
+     * TODO
+     * The allocated memory has to be freed
+     */
+
+    if (card_deck != NULL) {
+        card_deck = NULL;
+    }
 
     for (int i = 0; i < sizeof(suites); ++i) {
         for (int j = 0; j < sizeof(values); ++j) {
