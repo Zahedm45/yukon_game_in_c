@@ -200,6 +200,42 @@ void set_foundation(Game_board **game_board, int foundation_num, char card[]){
 }
 
 
+ Card *sub_set_card_visible(Card *block) {
+
+    Card *new_block = block;
+
+    while (block != NULL) {
+
+        block->face_up = 1;
+
+        block = block->next;
+    }
+
+    return new_block;
+}
 
 
+void set_cards_visible(Game_board **game_board) {
+
+
+
+    (*game_board)->block1 = sub_set_card_visible((*game_board)->block1);
+    (*game_board)->block2 = sub_set_card_visible((*game_board)->block2);
+    (*game_board)->block3 = sub_set_card_visible((*game_board)->block3);
+    (*game_board)->block4 = sub_set_card_visible((*game_board)->block4);
+    (*game_board)->block5 = sub_set_card_visible((*game_board)->block5);
+    (*game_board)->block6 = sub_set_card_visible((*game_board)->block6);
+    (*game_board)->block7 = sub_set_card_visible((*game_board)->block7);
+
+
+
+
+
+
+
+
+
+
+
+}
 
