@@ -11,7 +11,7 @@ int main() {
 
     char input[2];
     char last_command[20] = "";
-    char message_output[20] = "";
+    char message_output[70] = "";
     int length = 2;
 
     // Initialize game board
