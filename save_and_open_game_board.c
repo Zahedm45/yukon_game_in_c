@@ -134,7 +134,7 @@ char * foundation_from_file(FILE *fPointer) {
     return NULL;
 }
 
-Game_board *open_game_board_from_pc(char board_name[]) {
+Game_board *load_game_board_from_pc(char board_name[]) {
 
     char with_format[70];
     stpcpy(with_format, board_name);

@@ -40,11 +40,19 @@ int main() {
 
 
         if(strncmp(command, "LD", 2) == 0) {
-            strcpy(last_command, command);
-            strcpy(message_output, "OK");
-            initialize_card_deck(0);
-            game_board = initialize_game_board(card_deck);
+
+            if (optional_command != NULL) {
+                game_board = load_game_board_from_pc(optional_command);
+
+            } else {
+                initialize_card_deck(0);
+                game_board = initialize_game_board(card_deck);
+
+            }
             display_game_board(game_board);
+            strcpy(last_command, input);
+            strcpy(message_output, "OK");
+
 
 
             //printf("You entered %*.*s\n", length, length, input);
@@ -55,7 +63,7 @@ int main() {
                 //puts("Initialize a game board by typing LD");
 
             } else {
-                strcpy(last_command, command);
+                strcpy(last_command, input);
                 strcpy(message_output, "OK");
                 set_cards_visible(&game_board);
                 display_game_board(game_board);
@@ -70,14 +78,11 @@ int main() {
                 if (optional_command == NULL) {
                     strcpy(message_output, "Board name");
 
-
-
                 } else {
                     save_game_board_on_pc( game_board, optional_command);
-                    strcpy(last_command, command);
+                    strcpy(last_command, input);
                     strcpy(message_output, "OK");
                 }
-
             }
 
 
@@ -87,8 +92,6 @@ int main() {
             strcpy(message_output, "Unknown command");
             strcpy(last_command, "INVALID COMMAND EXECUTED");
         }
-
-
 
     }
 
