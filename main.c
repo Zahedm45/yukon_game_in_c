@@ -60,6 +60,7 @@ int main() {
         }
         else {
             strcpy(message_output, "Unknown command");
+            strcpy(last_command, "INVALID COMMAND EXECUTED");
         }
 
 
