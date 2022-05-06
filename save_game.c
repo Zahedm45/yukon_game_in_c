@@ -93,26 +93,21 @@ Card *single_line(FILE *fPointer){
             continue;
         }
 
-        //printf("some %s\n", singe_word);
         Card *newCard = malloc(sizeof(Card));
         newCard->suites_value[0] = singe_word[0];
         newCard->suites_value[1] = singe_word[1];
-        newCard->face_up = (int) singe_word[2];
+        int j = atoi(&singe_word[2]);
+        newCard->face_up = j;
+        newCard->next = NULL;
 
         if (block_head == NULL) {
-            //puts(newCard->suites_value);
             block_head = newCard;
             block = block_head;
 
-/*            puts("ami");
-            puts(newCard->suites_value);*/
         } else {
             block->next = newCard;
             block = block->next;
         }
-
-
-        //puts(newCard->suites_value);
 
     }
 
@@ -146,8 +141,6 @@ Game_board *open_game_board_from_pc(char board_name[]) {
     char line[7];
     while (!feof(file_pointer)) {
         fgets(line, 7, file_pointer);
-
-        //printf("here %s\n", line);
 
 
         if ( strcmp(line, "block1") == 0 ) {
@@ -191,26 +184,15 @@ Game_board *open_game_board_from_pc(char board_name[]) {
             char *f3 = foundation_from_file(file_pointer);
             strcpy(gameBoard->foundation3, f3);
 
-
             char *f4 = foundation_from_file(file_pointer);
             strcpy(gameBoard->foundation4, f4);
-
-
-
-            puts(gameBoard->foundation4);
-
-
-
-/*            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation2));
-            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation3));
-            foundation_from_file(file_pointer, (char **) &(gameBoard->foundation4));*/
             break;
         }
 
     }
     fclose(file_pointer);
 
-    printf("hello %s\n", gameBoard->block2->next->suites_value);
+    //printf("hello %d\n", gameBoard->block1->face_up);
 
     return gameBoard;
 
