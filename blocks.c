@@ -160,6 +160,7 @@ void display_game_board(Game_board *board){
     printf("C1\t\tC2\t\tC3\t\tC4\t\tC5\t\tC6\t\tC7\n\n");
 
 
+
     char *val_b1;
     char *val_b2;
     char *val_b3;
@@ -253,19 +254,15 @@ void display_game_board(Game_board *board){
             block7 = block7->next;
             continue_loop = 1;
 
-        } else block4 = null_block;
+        } else block7 = null_block;
 
-
-        //printf("%s\t\t%s\t\t\t\t\t\t\t\t\t\t\t\t\t[]\tF1\n", val_b1, val_b2);
 
         char foundation_name[] = "F1";
         char foundation_card[3];
-        //printf("before foundation: %s\n", foundation_card);
+
 
 
         foundation_display(board, counter, foundation_name, foundation_card);
-
-        //printf("foundation: %s\n", foundation_card);
 
 
 
@@ -277,14 +274,7 @@ void display_game_board(Game_board *board){
 
 
     printf("\n");
-/*    helper_display_card_deck(board->block1, 1);
-    helper_display_card_deck(board->block2, 2);
-    helper_display_card_deck(board->block3, 3);
-    helper_display_card_deck(board->block4, 4);
-    helper_display_card_deck(board->block5, 5);
-    helper_display_card_deck(board->block6, 6);
-    helper_display_card_deck(board->block7, 7);
-    */
+
 }
 
 

@@ -15,7 +15,7 @@ Card *last_added_card_deck;
 
 
 void add_node(const char val[2], int hidden);
-void add_card_to_block(Card **block, const char val[2], int hidden);
+void add_card_to_block(Card *block, const char val[2], int hidden);
 void free_mem(Card *mem);
 void initialize_card_deck();
 Game_board * initialize_game_board(Card *cards);
@@ -27,52 +27,63 @@ void set_foundation(Game_board **game_board, int foundation_num, char card[]);
 
 Game_board * initialize_game_board(Card *cards){
 
+
     Card *temp = cards;
     Game_board *new_board = malloc(sizeof(Game_board));
 
-    int j = 0;
-    for (int i = 0; i < 7; ++i) {
-
-        Card *new_block_head = NULL;
-        Card *new_block_last_added;
-
-        j++;
-        for (int k = 0; k <j; ++k) {
-            if (temp == NULL) {
-                printf("Something went wrong. From initialize_game_board() %d %d", i, k);
-                exit(0);
-            }
+    new_board->block1 = malloc(sizeof(Card));
+    new_board->block2 = malloc(sizeof(Card));
+    new_board->block3 = malloc(sizeof(Card));
+    new_board->block4 = malloc(sizeof(Card));
+    new_board->block5 = malloc(sizeof(Card));
+    new_board->block6 = malloc(sizeof(Card));
+    new_board->block7 = malloc(sizeof(Card));
 
 
 
 
-            Card *newC = malloc(sizeof(Card));
-            newC->suites_value[0] = temp->suites_value[0];
-            newC->suites_value[1] = temp->suites_value[1];
-            newC->face_up = temp->face_up;
-            newC->next = NULL;
 
-            temp = temp->next;
+    int i = 0;
+    while (temp != NULL) {
 
-            if (new_block_head == NULL) {
-                new_block_head = new_block_last_added = newC;
+        switch ( i % 7 ) {
+            case 0:
+                add_card_to_block(new_board->block1, temp->suites_value, temp->face_up);
+                break;
+            case 1:
+                add_card_to_block(new_board->block2, temp->suites_value, temp->face_up);
+                break;
+            case 2:
+                add_card_to_block( new_board->block3, temp->suites_value, temp->face_up);
+                break;
+            case 3:
+                add_card_to_block( new_board->block4, temp->suites_value, temp->face_up);
+                break;
+            case 4:
+                add_card_to_block( new_board->block5, temp->suites_value, temp->face_up);
+                break;
+            case 5:
+                add_card_to_block( new_board->block6, temp->suites_value, temp->face_up);
+                break;
+            case 6:
+                add_card_to_block( new_board->block7, temp->suites_value, temp->face_up);
+                break;
 
-
-            } else {
-                new_block_last_added->next = newC;
-                new_block_last_added = new_block_last_added->next;
-
-            }
-
+            default:
+                puts("something is wrong initialize()");
+                ;
         }
 
-        switch_block(i, &new_board, new_block_head);
-
-
-        if (i == 0) {
-            j = 5;
-        }
+        i++;
+        temp = temp->next;
     }
+
+
+/*    new_board->block3 = block3;
+    new_board->block4 = block4;
+    new_board->block5 = block5;
+    new_board->block6 = block6;
+    new_board->block7 = block7;*/
 
 
 
@@ -93,10 +104,30 @@ Game_board * initialize_game_board(Card *cards){
 
 
 
-void add_card_to_block(Card **block, const char val[2], int hidden){
-    Card **temp = block;
+void add_card_to_block(Card *block, const char val[2], int hidden){
 
-    while ((*temp)->next!= NULL) {
+
+
+    Card *temp = block;
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+    newC->next = NULL;
+
+    temp->next = newC;
+
+
+
+
+/*    Card **temp = block;
+
+    while ((*temp)->next != NULL) {
         *temp = (*temp)->next;
     }
 
@@ -106,7 +137,7 @@ void add_card_to_block(Card **block, const char val[2], int hidden){
     newC->face_up = hidden;
     newC->next = NULL;
 
-    *temp = newC;
+    *temp = newC;*/
 
 }
 
@@ -229,13 +260,78 @@ void set_cards_visible(Game_board **game_board) {
 
 
 
-
-
-
-
-
-
-
-
 }
 
+
+
+
+
+
+
+
+
+
+
+
+/*Game_board * initialize_game_board(Card *cards){
+
+    Card *temp = cards;
+    Game_board *new_board = malloc(sizeof(Game_board));
+
+    int j = 0;
+    for (int i = 0; i < 7; ++i) {
+
+        Card *new_block_head = NULL;
+        Card *new_block_last_added;
+
+        j++;
+        for (int k = 0; k <j; ++k) {
+            if (temp == NULL) {
+                printf("Something went wrong. From initialize_game_board() %d %d", i, k);
+                exit(0);
+            }
+
+
+
+
+            Card *newC = malloc(sizeof(Card));
+            newC->suites_value[0] = temp->suites_value[0];
+            newC->suites_value[1] = temp->suites_value[1];
+            newC->face_up = temp->face_up;
+            newC->next = NULL;
+
+            temp = temp->next;
+
+            if (new_block_head == NULL) {
+                new_block_head = new_block_last_added = newC;
+
+
+            } else {
+                new_block_last_added->next = newC;
+                new_block_last_added = new_block_last_added->next;
+
+            }
+
+        }
+
+        switch_block(i, &new_board, new_block_head);
+
+
+        if (i == 0) {
+            j = 5;
+        }
+    }
+
+
+
+    strcpy(new_board->foundation1, "[]");
+    strcpy(new_board->foundation2, "[]");
+    strcpy(new_board->foundation3, "[]");
+    strcpy(new_board->foundation4, "[]");
+
+
+
+
+
+    return new_board;
+}*/

@@ -49,18 +49,16 @@ int main() {
                 game_board = initialize_game_board(card_deck);
 
             }
+            print_card_deck(card_deck);
             display_game_board(game_board);
             strcpy(last_command, input);
             strcpy(message_output, "OK");
 
 
-
-            //printf("You entered %*.*s\n", length, length, input);
         } else if(strncmp(command, "SW", 2) == 0) {
 
             if (game_board == NULL){
                 strcpy(message_output, "Initialize a game board by typing LD");
-                //puts("Initialize a game board by typing LD");
 
             } else {
                 strcpy(last_command, input);
@@ -85,10 +83,14 @@ int main() {
                 }
             }
 
-
         }
 
         else {
+/*            add_card_to_block(game_board->block1, "H4", 1);
+            add_card_to_block(game_board->block1, "H3", 1);
+            add_card_to_block(game_board->block2, "H5", 1);
+            display_game_board(game_board);*/
+
             strcpy(message_output, "Unknown command");
             strcpy(last_command, "INVALID COMMAND EXECUTED");
         }
