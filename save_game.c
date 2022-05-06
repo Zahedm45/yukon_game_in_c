@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 void save_game_board_helper(Card *block, FILE *fpointer) {
     while (block != NULL) {
 
@@ -23,7 +24,7 @@ void save_game_board_helper(Card *block, FILE *fpointer) {
 
 
 
-void save_game_board(Game_board *board) {
+void save_game_board_on_pc(Game_board *board) {
     FILE *fpointer;
     fpointer = fopen("game_board.text", "w");
 
@@ -58,3 +59,17 @@ void save_game_board(Game_board *board) {
 }
 
 
+
+void open_game_board_from_pc(char board_name[]) {
+
+
+    FILE *file_pointer = fopen(board_name, "r");
+
+    char line[200];
+    while (!feof(file_pointer)) {
+        fgets(line, 200, file_pointer);
+        puts(line);
+    }
+    fclose(file_pointer);
+
+}
