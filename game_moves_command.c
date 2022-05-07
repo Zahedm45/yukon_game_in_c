@@ -12,7 +12,9 @@ char *find_foundation_name(Game_board *board, char *str);
 int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, char *msg);
 
 
-
+int MOVE_NOT_POSSIBLE = 0;
+int COMMAND_NOT_FOUND = -1;
+int SUCCEEDED = 1;
 
 
 
@@ -32,6 +34,10 @@ int moves_commands(Game_board *board, char *commands, char *msg){
         Card *block_from = find_block_name(board, move_from);
         Card *block_to = find_block_name(board, move_to);
 
+        if (block_from == NULL || block_to == NULL) {
+            strcpy(msg, "Move is not possible");
+            return MOVE_NOT_POSSIBLE;
+        }
 
 
         return move_card_to_another_block(block_to, block_from, card_name, msg);
@@ -54,12 +60,10 @@ int moves_commands(Game_board *board, char *commands, char *msg){
             return move_card_to_another_block(block_to, block_from, NULL, msg);
         }
 
-
-
     }
 
 
-    return 0;
+    return COMMAND_NOT_FOUND;
 
 
 }
@@ -82,18 +86,31 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
             foundation[0] = temp->next->suites_value[0];
             foundation[1] = temp->next->suites_value[1];
             temp->next = NULL;
+            temp->face_up = 1;
             return 1;
         } else {
             strcpy(msg, "Move is not possible");
-            return 1;
+            return MOVE_NOT_POSSIBLE;
         }
 
-    } else {
-        strcpy(msg, "Move is not possible");
-        return 1;
+    } else if (foundation[0] == '[' && foundation[1] == ']') {
+
+        if (temp->next->suites_value[1] == 'A') {
+            foundation[0] = temp->next->suites_value[0];
+            foundation[1] = temp->next->suites_value[1];
+            temp->next = NULL;
+            temp->face_up = 1;
+            return 1;
+        }
     }
 
 
+    else {
+        strcpy(msg, "Move is not possible");
+        return MOVE_NOT_POSSIBLE;
+    }
+
+    return COMMAND_NOT_FOUND;
 }
 
 
@@ -102,12 +119,15 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     Card *temp_s = source;
 
+    int card_found = 0;
+
 
     if (card_name != NULL) {
         while (temp_s->next != NULL) {
             if (temp_s->next->face_up == VISIBLE) {
 
                 if (strncmp(temp_s->next->suites_value, card_name, 2) == 0) {
+                    card_found = 1;
                     break;
                 }
             }
@@ -115,8 +135,11 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
             temp_s = temp_s->next;
         }
 
-        strcpy(msg, "Card x does not exist in the block");
-        return 1;
+        if (card_found == 0) {
+            strcpy(msg, "Card x does not exist in the block");
+            return MOVE_NOT_POSSIBLE;
+        }
+
 
     } else {
 
@@ -137,7 +160,7 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
         strcpy(msg, "Move is not possible(same suit)!");
-        return 1;
+        return MOVE_NOT_POSSIBLE;
     }
 
 
@@ -149,7 +172,8 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
         temp_d->next = temp_s->next;
         temp_s->next = NULL;
-        return 1;
+        temp_s->face_up = 1;
+        return SUCCEEDED;
     }
 
 

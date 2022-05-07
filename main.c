@@ -196,36 +196,40 @@ void P_command() {
 
 void play_mode_commands(){
 
-    puts(input);
 
     if (strncmp(command, "Q", 1) == 0) {
         in_play_mode = -1;
         strcpy(message_output, "OK");
 
-    } else if (moves_commands(game_board, input, message_output) == 1) {
-
-        display_game_board(game_board);
-
-
     } else if (strncmp(command, "AD", 2) == 0) {
 
-        add_card_to_block(game_board->block1, "D6", 1);
-        add_card_to_block(game_board->block1, "D4", 1);
-        set_foundation(&game_board, 1, "H2");
-        add_card_to_block(game_board->block1, "H3", 1);
+/*        add_card_to_block(game_board->block1, "D6", 1);
+        add_card_to_block(game_board->block2, "D4", 1);
+        set_foundation(&game_board, 1, "H2");*/
+        add_card_to_block(game_board->block1, optional_command, 1);
 
 
 
 
         display_game_board(game_board);
 
+    } else {
+
+        int result = moves_commands(game_board, input, message_output);
+
+        if (result == SUCCEEDED){
+            display_game_board(game_board);
+            strcpy(message_output, "OK");
+
+        }
+
+        else if (result == COMMAND_NOT_FOUND) {strcpy(message_output, PM_MSG);}
+
+
+
     }
 
 
-    else {
-        strcpy(message_output, PM_MSG);
-
-    }
     strcpy(last_command, input);
 
 }
