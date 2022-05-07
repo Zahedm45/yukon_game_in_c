@@ -23,7 +23,7 @@ char input_copy[MAX_BUFFER];
 int in_play_mode = -1;
 
 char msg1[] = "Initialize a game board by typing LD";
-char pm_msg[] = "The game is in play mode!. Type Q to exit.";
+char PM_MSG[] = "The game is in play mode!. Type Q to exit.";
 char file_saved_msg[] = "The game board has been saved on your pc.";
 
 
@@ -201,10 +201,11 @@ void play_mode_commands(){
 
     } else if (moves_commands(game_board, input) == 1) {
 
+        display_game_board(game_board);
 
 
     }else {
-        strcpy(message_output, pm_msg);
+        strcpy(message_output, PM_MSG);
 
     }
     strcpy(last_command, input);

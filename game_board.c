@@ -165,7 +165,7 @@ void initialize_card_deck(int face_val) {
 
 
 
-void free_game_board(Game_board *board) {
+/*void free_game_board(Game_board *board) {
 
     free_mem_block(board->block1);
     free_mem_block(board->block2);
@@ -175,7 +175,7 @@ void free_game_board(Game_board *board) {
     free_mem_block(board->block6);
     free_mem_block(board->block7);
 
-}
+}*/
 
 
 void set_foundation(Game_board **game_board, int foundation_num, char card[]){

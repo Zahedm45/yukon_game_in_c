@@ -88,7 +88,7 @@ void print_card_deck(Card *card_deck) {
 }
 
 
-void free_mem_block(Card *mem) {
+/*void free_mem_block(Card *mem) {
     Card *temp;
 
     while (mem != NULL) {
@@ -97,7 +97,7 @@ void free_mem_block(Card *mem) {
         free(temp);
     }
 
-}
+}*/
 
 
 

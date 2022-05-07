@@ -36,7 +36,9 @@ void spilt_input(char input[], char first_input[], char second_input[]) {
 
 void remove_last_line(char *source) {
     int i;
-    for (i = 0; source[i] != '\n'; ++i) {}
+    for (i = 0; source[i] != '\n'; ++i) {
+
+    }
     if (source[i] == '\n') source[i] = '\0';
 
 }
