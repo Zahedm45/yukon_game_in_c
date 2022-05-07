@@ -209,7 +209,7 @@ void play_mode_commands(){
 
     } else if (strncmp(command, "AD", 2) == 0) {
 
-        add_card_to_block(game_board->block1, "C6", 1);
+        add_card_to_block(game_board->block1, "D6", 1);
         display_game_board(game_board);
 
     }

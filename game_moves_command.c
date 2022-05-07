@@ -5,9 +5,15 @@
 int contains_colon(char *str);
 int contains_arrow(char *str);
 void init_commands(char *source, char *dist, int first_n, int sec_n);
-int move_card(Card *dist, Card *source, char card_name[], char *msg);
+int move_card_to_another_block(Card *dist, Card *source, char card_name[], char *msg);
 Card *find_block_name(Game_board *board, char *str);
 int convert_char_to_int(char str);
+char *find_foundation_name(Game_board *board, char *str);
+
+
+
+
+
 
 int moves_commands(Game_board *board, char *commands, char *msg){
 
@@ -27,24 +33,35 @@ int moves_commands(Game_board *board, char *commands, char *msg){
 
 
 
-        return move_card(block_to, block_from, card_name, msg);
+        return move_card_to_another_block(block_to, block_from, card_name, msg);
 
 
 
     } else if (contains_arrow(commands) == 1) {
         init_commands(commands, move_from, 0, 1);
         init_commands(commands, move_to, 4, 5);
-
-
         Card *block_from = find_block_name(board, move_from);
+
+
+
+
+        if (move_to[0] == 'F') {
+            char *foundation = find_foundation_name(board, move_to);
+
+            Card *temp = block_from;
+            while (temp->next->next != NULL) {
+                temp = temp->next;
+            }
+
+            if (foundation[0] == temp->suites_value[0]) {
+
+            }
+        }
+
         Card *block_to = find_block_name(board, move_to);
 
-        return move_card(block_to, block_from, NULL, msg);
+        return move_card_to_another_block(block_to, block_from, NULL, msg);
 
-
-
-
-        return 1;
     }
 
 
@@ -53,8 +70,16 @@ int moves_commands(Game_board *board, char *commands, char *msg){
 
 }
 
+int move_card_to_foundation(){
 
-int move_card(Card *dist, Card *source, char card_name[], char *msg){
+
+
+
+}
+
+
+
+int move_card_to_another_block(Card *dist, Card *source, char card_name[], char *msg){
 
     Card *temp_s = source;
 
@@ -135,16 +160,28 @@ int convert_char_to_int(char str){
 }
 
 
+char *find_foundation_name(Game_board *board, char *str){
+
+    if (strncmp(str, "F1", 2) == 0) {return board->foundation1;}
+    else if (strncmp(str, "F2", 2) == 0) {return board->foundation2;}
+    else if (strncmp(str, "F3", 2) == 0) {return board->foundation3;}
+    else if (strncmp(str, "F4", 2) == 0) {return board->foundation4;}
+    else return NULL;
+
+}
+
+
+
 
 Card *find_block_name(Game_board *board, char *str){
 
-    if (strncmp(str, "C1", 2) == 0) return board->block1;
-    else if (strncmp(str, "C2", 2) == 0) return board->block2;
-    else if (strncmp(str, "C3", 2) == 0) return board->block3;
-    else if (strncmp(str, "C4", 2) == 0) return board->block4;
-    else if (strncmp(str, "C5", 2) == 0) return board->block5;
-    else if (strncmp(str, "C6", 2) == 0) return board->block6;
-    else if (strncmp(str, "C7", 2) == 0) return board->block7;
+    if (strncmp(str, "B1", 2) == 0) return board->block1;
+    else if (strncmp(str, "B2", 2) == 0) return board->block2;
+    else if (strncmp(str, "B3", 2) == 0) return board->block3;
+    else if (strncmp(str, "B4", 2) == 0) return board->block4;
+    else if (strncmp(str, "B5", 2) == 0) return board->block5;
+    else if (strncmp(str, "B6", 2) == 0) return board->block6;
+    else if (strncmp(str, "B7", 2) == 0) return board->block7;
     else return NULL;
 }
 
