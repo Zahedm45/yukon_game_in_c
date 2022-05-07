@@ -87,12 +87,12 @@ void print_card_deck(Card *card_deck) {
 }
 
 
-void free_mem_block(Card **mem) {
+void free_mem_block(Card *mem) {
     Card *temp;
 
-    while (*mem != NULL) {
-        temp = *mem;
-        *mem = (*mem)->next;
+    while (mem != NULL) {
+        temp = mem;
+        mem = mem->next;
         free(temp);
     }
 

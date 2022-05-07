@@ -247,6 +247,8 @@ void set_cards_visible(Game_board **game_board) {
     (*game_board)->block6 = sub_set_card_visible((*game_board)->block6);
     (*game_board)->block7 = sub_set_card_visible((*game_board)->block7);
 
+    sub_set_card_visible(card_deck);
+
 }
 
 
@@ -274,15 +276,29 @@ void shuffle_card_deck_SI(int split_num) {
     }
 
 
+    /**
+     * TODO
+     * Variable card_deck has to be freed.
+     */
+
+    card_deck = malloc(sizeof(Card));
+
+    for (int j = 0; j < 52; ++j) {
+
+        if (part_1 != NULL) {
+            add_card_to_block(card_deck, part_1->suites_value, part_1->face_up);
+            part_1 = part_1->next;
+
+        }
+
+        if(part_2 != NULL) {
+            add_card_to_block(card_deck, part_2->suites_value, part_2->face_up);
+            part_2 = part_2->next;
+        }
+    }
 
 
-
-
-
-
-
-
-
+    //print_card_deck(card_deck);
 
 }
 

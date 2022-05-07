@@ -48,7 +48,7 @@ int main() {
 
                 if (card_deck == NULL) {
                     initialize_card_deck(-1);
-                    shuffle_card_deck_SI(5);
+
                 }
                 game_board = initialize_game_board(card_deck);
             }
@@ -87,6 +87,25 @@ int main() {
                     strcpy(message_output, "OK");
                 }
             }
+
+        } else if (strncmp(command, "SI", 2) == 0) {
+
+            shuffle_card_deck_SI(5);
+            game_board = initialize_game_board(card_deck);
+
+            display_game_board(game_board);
+            if (optional_command != NULL) {
+
+
+
+/*                int split_num = atoi(optional_command);
+                if (split_num < 52) {
+                    shuffle_card_deck_SI(5);
+                    initialize_game_board(card_deck);
+                    puts("heeheheeh");
+                }*/
+            }
+
 
         }
 
