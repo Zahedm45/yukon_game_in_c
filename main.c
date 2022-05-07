@@ -210,6 +210,13 @@ void play_mode_commands(){
     } else if (strncmp(command, "AD", 2) == 0) {
 
         add_card_to_block(game_board->block1, "D6", 1);
+        add_card_to_block(game_board->block1, "D4", 1);
+        set_foundation(&game_board, 1, "H2");
+        add_card_to_block(game_board->block1, "H3", 1);
+
+
+
+
         display_game_board(game_board);
 
     }

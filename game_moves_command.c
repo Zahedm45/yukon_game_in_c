@@ -9,6 +9,7 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 Card *find_block_name(Game_board *board, char *str);
 int convert_char_to_int(char str);
 char *find_foundation_name(Game_board *board, char *str);
+int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, char *msg);
 
 
 
@@ -44,23 +45,16 @@ int moves_commands(Game_board *board, char *commands, char *msg){
 
 
 
-
         if (move_to[0] == 'F') {
-            char *foundation = find_foundation_name(board, move_to);
+            return move_card_to_foundation(board, block_from, move_to, msg);
 
-            Card *temp = block_from;
-            while (temp->next->next != NULL) {
-                temp = temp->next;
-            }
+        } else {
 
-            if (foundation[0] == temp->suites_value[0]) {
-
-            }
+            Card *block_to = find_block_name(board, move_to);
+            return move_card_to_another_block(block_to, block_from, NULL, msg);
         }
 
-        Card *block_to = find_block_name(board, move_to);
 
-        return move_card_to_another_block(block_to, block_from, NULL, msg);
 
     }
 
@@ -70,9 +64,34 @@ int moves_commands(Game_board *board, char *commands, char *msg){
 
 }
 
-int move_card_to_foundation(){
+int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, char *msg){
+
+    char *foundation = find_foundation_name(board, move_to);
+
+    Card *temp = block_from;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+
+    if (foundation[0] == temp->next->suites_value[0]) {
+        int int_foundation_card_val = convert_char_to_int(foundation[1]);
+        int int_block_card_val = convert_char_to_int(temp->next->suites_value[1]);
 
 
+        if (int_block_card_val-1 == int_foundation_card_val) {
+            foundation[0] = temp->next->suites_value[0];
+            foundation[1] = temp->next->suites_value[1];
+            temp->next = NULL;
+            return 1;
+        } else {
+            strcpy(msg, "Move is not possible");
+            return 1;
+        }
+
+    } else {
+        strcpy(msg, "Move is not possible");
+        return 1;
+    }
 
 
 }
