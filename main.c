@@ -46,7 +46,10 @@ int main() {
 
             } else {
 
-                if (card_deck == NULL) {initialize_card_deck(-1);}
+                if (card_deck == NULL) {
+                    initialize_card_deck(-1);
+                    shuffle_card_deck_SI(5);
+                }
                 game_board = initialize_game_board(card_deck);
             }
 

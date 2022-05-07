@@ -119,46 +119,9 @@ void add_card_to_block(Card *block, const char val[2], int hidden){
         temp->next = newC;
     }
 
-
-
-
-
-
-/*    Card **temp = block;
-
-    while ((*temp)->next != NULL) {
-        *temp = (*temp)->next;
-    }
-
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
-    newC->next = NULL;
-
-    *temp = newC;*/
-
 }
 
 
-
-
-/*void free_card_deck(){
-    Card *temp;
-
-    while (card_deck != NULL) {
-        temp = card_deck;
-        card_deck = card_deck->next;
-        free(temp);
-    }
-
-    if (last_added_card_deck != NULL) {
-        free(last_added_card_deck);
-    }
-
-    if (card_deck != NULL) free(card_deck);
-
-}*/
 
 
 
@@ -270,14 +233,11 @@ void set_foundation(Game_board **game_board, int foundation_num, char card[]){
 
         block = block->next;
     }
-
     return new_block;
 }
 
 
 void set_cards_visible(Game_board **game_board) {
-
-
 
     (*game_board)->block1 = sub_set_card_visible((*game_board)->block1);
     (*game_board)->block2 = sub_set_card_visible((*game_board)->block2);
@@ -287,10 +247,44 @@ void set_cards_visible(Game_board **game_board) {
     (*game_board)->block6 = sub_set_card_visible((*game_board)->block6);
     (*game_board)->block7 = sub_set_card_visible((*game_board)->block7);
 
+}
+
+
+
+
+void shuffle_card_deck_SI(int split_num) {
+
+
+    Card *part_1 = malloc(sizeof(Card));
+    Card *temp = card_deck;
+
+    int i = 0;
+    while (temp != NULL && i < split_num){
+        add_card_to_block(part_1, temp->suites_value, temp->face_up);
+        temp = temp->next;
+        i++;
+    }
+
+
+    Card *part_2 = malloc(sizeof(Card));
+    while (temp != NULL) {
+
+        add_card_to_block(part_2, temp->suites_value, temp->face_up);
+        temp = temp->next;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }
-
 
 
 
