@@ -32,9 +32,8 @@ int main() {
 
 
 
-
     // Main game loop
-    while(strcmp(command, "stop") != 0) {
+    while(1) {
 
         printf("LAST Command: ");
         printf("%s \n", last_command);
@@ -62,6 +61,8 @@ int main() {
 
         } else if (strncmp(command, "SI", 2) == 0) {
             SI_command();
+        } else if (strncmp(command, "QQ", 2) == 0) {
+            exit(0);
         }
 
         else {
