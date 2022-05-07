@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "blocks.c"
+#include "game_moves_command.c"
 #include "save_and_open_game_board.c"
 
 

@@ -48,6 +48,7 @@ int main() {
         fgets(input, MAX_BUFFER, stdin);
         printf("\n");
 
+        // if statement can be applied
         strcpy(input_copy, input);
         command = strtok(input_copy, " ");
         optional_command = strtok(NULL, " ");
@@ -192,17 +193,20 @@ void P_command() {
 
 void play_mode_commands(){
 
+    puts(input);
+
     if (strncmp(command, "Q", 1) == 0) {
         in_play_mode = -1;
         strcpy(message_output, "OK");
 
-    }
-    else {
+    } else if (moves_commands(game_board, input) == 1) {
+
+
+
+    }else {
         strcpy(message_output, pm_msg);
 
     }
     strcpy(last_command, input);
-
-
 
 }
