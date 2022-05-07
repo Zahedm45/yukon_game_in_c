@@ -174,9 +174,12 @@ void initialize_card_deck(int hidden) {
      * The allocated memory has to be freed
      */
 
-    if (card_deck != NULL) {
+/*    if (card_deck != NULL) {
+        free_mem_block(&card_deck);
         card_deck = NULL;
-    }
+    }*/
+
+
 
     for (int i = 0; i < sizeof(suites); ++i) {
         for (int j = 0; j < sizeof(values); ++j) {
@@ -201,7 +204,11 @@ void add_node(const char val[2], int hidden) {
         last_added_card_deck->next = newC;
         last_added_card_deck = last_added_card_deck->next;
 
-    } else card_deck = last_added_card_deck = newC;
+    } else {
+
+        card_deck = newC;
+        last_added_card_deck = newC;
+    }
 
 }
 

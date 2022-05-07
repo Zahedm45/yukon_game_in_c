@@ -90,7 +90,6 @@ void print_card_deck(Card *card_deck) {
 void free_mem_block(Card **mem) {
     Card *temp;
 
-
     while (*mem != NULL) {
         temp = *mem;
         *mem = (*mem)->next;
@@ -109,13 +108,11 @@ void helper_func_display_card_deck(int face_up, char **val_b, char else_val[]){
 
     } else {
         *val_b = " ";
-        //printf(" from %d", face_up);
     }
 }
 
 
 void helper_display_card_deck(Card *block, int block_num) {
-
 
     Card *temp = block;
     printf("Block: %d \t\t", block_num);
