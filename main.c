@@ -207,7 +207,15 @@ void play_mode_commands(){
         display_game_board(game_board);
 
 
-    }else {
+    } else if (strncmp(command, "AD", 2) == 0) {
+
+        add_card_to_block(game_board->block1, "C6", 1);
+        display_game_board(game_board);
+
+    }
+
+
+    else {
         strcpy(message_output, PM_MSG);
 
     }

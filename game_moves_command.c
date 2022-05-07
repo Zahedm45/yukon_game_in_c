@@ -36,6 +36,13 @@ int moves_commands(Game_board *board, char *commands, char *msg){
         init_commands(commands, move_to, 4, 5);
 
 
+        Card *block_from = find_block_name(board, move_from);
+        Card *block_to = find_block_name(board, move_to);
+
+        return move_card(block_to, block_from, NULL, msg);
+
+
+
 
         return 1;
     }
@@ -51,43 +58,59 @@ int move_card(Card *dist, Card *source, char card_name[], char *msg){
 
     Card *temp_s = source;
 
-    while (temp_s->next != NULL) {
-        if (temp_s->next->face_up == VISIBLE) {
 
-            if (strncmp(temp_s->next->suites_value, card_name, 2) == 0) {
+    if (card_name != NULL) {
+        while (temp_s->next != NULL) {
+            if (temp_s->next->face_up == VISIBLE) {
 
-
-                Card *temp_d = dist;
-
-                while (temp_d->next != NULL) {
-                    temp_d = temp_d->next;
+                if (strncmp(temp_s->next->suites_value, card_name, 2) == 0) {
+                    break;
                 }
-
-
-                if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
-                    strcpy(msg, "Move is not possible(same suit)!");
-                    return 0;
-                }
-
-
-
-                int card_to_move_val = convert_char_to_int(temp_s->next->suites_value[1]);
-                int card_dist_val = convert_char_to_int(temp_d->suites_value[1]);
-
-                if (card_to_move_val == (card_dist_val-1)) {
-
-                    temp_d->next = temp_s->next;
-                    temp_s->next = NULL;
-                    return 1;
-                }
-
             }
+
+            temp_s = temp_s->next;
         }
 
+        strcpy(msg, "Card x does not exist in the block");
+        return 1;
 
+    } else {
 
-        temp_s = temp_s->next;
+        while (temp_s->next->next != NULL) {
+            temp_s = temp_s->next;
+        }
     }
+
+
+
+
+
+    Card *temp_d = dist;
+    while (temp_d->next != NULL) {
+        temp_d = temp_d->next;
+    }
+
+
+    if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
+        strcpy(msg, "Move is not possible(same suit)!");
+        return 1;
+    }
+
+
+
+    int card_to_move_val = convert_char_to_int(temp_s->next->suites_value[1]);
+    int card_dist_val = convert_char_to_int(temp_d->suites_value[1]);
+
+    if (card_to_move_val == (card_dist_val-1)) {
+
+        temp_d->next = temp_s->next;
+        temp_s->next = NULL;
+        return 1;
+    }
+
+
+
+
     return 0;
 
 }
