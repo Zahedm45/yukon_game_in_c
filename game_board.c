@@ -270,15 +270,15 @@ void shuffle_card_deck_SI(int split_num) {
 
     for (int j = 0; j < 52; ++j) {
 
+        if(part_2 != NULL) {
+            add_card_to_block(card_deck, part_2->suites_value, part_2->face_up);
+            part_2 = part_2->next;
+        }
+
         if (part_1 != NULL) {
             add_card_to_block(card_deck, part_1->suites_value, part_1->face_up);
             part_1 = part_1->next;
 
-        }
-
-        if(part_2 != NULL) {
-            add_card_to_block(card_deck, part_2->suites_value, part_2->face_up);
-            part_2 = part_2->next;
         }
     }
 
