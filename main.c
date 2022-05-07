@@ -12,6 +12,7 @@ void SD_command();
 void SW_command();
 void LD_command();
 void P_command();
+void play_mode_commands();
 
 char input[MAX_BUFFER];
 char *command = "";
@@ -54,17 +55,7 @@ int main() {
 
 
         if (in_play_mode == 1) {
-            if (strncmp(command, "Q", 1) == 0) {
-                in_play_mode = -1;
-                strcpy(message_output, "OK");
-
-            } else {
-                strcpy(message_output, pm_msg);
-
-            }
-
-            strcpy(last_command, input);
-
+            play_mode_commands();
 
         }else if (strncmp(command, "LD", 2) == 0) {
             LD_command();
@@ -195,5 +186,23 @@ void P_command() {
     set_half_of_the_cards_invisible(game_board);
     display_game_board(game_board);
     in_play_mode = 1;
+
+}
+
+
+void play_mode_commands(){
+
+    if (strncmp(command, "Q", 1) == 0) {
+        in_play_mode = -1;
+        strcpy(message_output, "OK");
+
+    }
+    else {
+        strcpy(message_output, pm_msg);
+
+    }
+    strcpy(last_command, input);
+
+
 
 }
