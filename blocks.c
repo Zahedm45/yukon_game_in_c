@@ -2,7 +2,8 @@
 // Created by MD. Zahed on 22/04/2022.
 //
 
-
+int VISIBLE = 1;
+int INVISIBLE = 0;
 
 
 typedef struct Card {
@@ -101,7 +102,7 @@ void free_mem_block(Card *mem) {
 
 
 void helper_func_display_card_deck(int face_up, char **val_b, char else_val[]){
-    if (face_up == -1) {
+    if (face_up == INVISIBLE) {
         *val_b = "[]";
     } else if (face_up == 1) {
         *val_b = else_val;
@@ -180,7 +181,7 @@ void display_game_board(Game_board *board){
 
     Card *null_block = malloc(sizeof(Card));
     null_block->next = NULL;
-    null_block->face_up = 0;
+    null_block->face_up = -1;
 
 
     int counter = 0;

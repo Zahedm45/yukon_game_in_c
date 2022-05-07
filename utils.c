@@ -3,8 +3,10 @@
 //
 
 
-void spilt_input(char input[], char first_input[], char second_input[]) {
 
+
+
+void spilt_input(char input[], char first_input[], char second_input[]) {
 
     char elem;
 

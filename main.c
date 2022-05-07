@@ -103,7 +103,7 @@ void LD_command() {
 
     } else {
 
-        initialize_card_deck(-1);
+        initialize_card_deck(INVISIBLE);
         game_board = initialize_game_board(card_deck);
     }
 

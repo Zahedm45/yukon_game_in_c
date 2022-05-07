@@ -213,7 +213,7 @@ void set_foundation(Game_board **game_board, int foundation_num, char card[]){
 
     while (block != NULL) {
 
-        block->face_up = 1;
+        block->face_up = VISIBLE;
 
         block = block->next;
     }
@@ -418,16 +418,21 @@ void set_block_invisible(Card * block, int depth) {
     Card *temp = block;
     int k = 0;
     while (k < depth && temp != NULL) {
-        temp->face_up = -1;
+        temp->face_up = INVISIBLE;
         temp = temp->next;
         k++;
     }
 
+    while (temp != NULL) {
+        temp->face_up = VISIBLE;
+        temp = temp->next;
+    }
 }
 
 
 void set_half_of_the_cards_invisible(Game_board *gameBoard) {
 
+    set_block_invisible(gameBoard->block1, 0);
     set_block_invisible(gameBoard->block2, 1);
     set_block_invisible(gameBoard->block3, 2);
     set_block_invisible(gameBoard->block4, 3);
