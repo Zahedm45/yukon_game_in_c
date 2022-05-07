@@ -10,7 +10,7 @@
 
 
 Card *card_deck;
-Card *last_added_card_deck;
+//Card *last_added_card_deck;
 
 
 
@@ -18,7 +18,7 @@ void add_node(const char val[2], int hidden);
 void add_card_to_block(Card *block, const char val[2], int hidden);
 void initialize_card_deck();
 Game_board * initialize_game_board(Card *cards);
-void free_game_board(Game_board **board);
+void free_game_board(Game_board *board);
 void set_foundation(Game_board **game_board, int foundation_num, char card[]);
 
 
@@ -125,7 +125,7 @@ void add_card_to_block(Card *block, const char val[2], int hidden){
 
 
 
-void initialize_card_deck(int hidden) {
+void initialize_card_deck(int face_val) {
 
     char values[13] = {'A' ,'2', '3', '4', '5', '6', '7', '8', '9',
                        'T', 'J', 'Q', 'K'};
@@ -138,17 +138,21 @@ void initialize_card_deck(int hidden) {
      */
 
 /*    if (card_deck != NULL) {
-        free_mem_block(&card_deck);
-        card_deck = NULL;
+        free_mem_block(card_deck->next);
+        free(card_deck);
+
     }*/
 
 
+
+    card_deck = malloc(sizeof(Card));
 
     for (int i = 0; i < sizeof(suites); ++i) {
         for (int j = 0; j < sizeof(values); ++j) {
             val[0] = suites[i];
             val[1] = values[j];
-            add_node(val, hidden);
+            //add_node(val, hidden);
+            add_card_to_block(card_deck, val, face_val);
         }
 
     }
@@ -157,7 +161,7 @@ void initialize_card_deck(int hidden) {
 
 
 
-void add_node(const char val[2], int hidden) {
+/*void add_node(const char val[2], int hidden) {
     Card *newC = malloc(sizeof(Card));
     newC->suites_value[0] = val[0];
     newC->suites_value[1] = val[1];
@@ -173,22 +177,20 @@ void add_node(const char val[2], int hidden) {
         last_added_card_deck = newC;
     }
 
-}
+}*/
 
 
 
 
-void free_game_board(Game_board **board) {
+void free_game_board(Game_board *board) {
 
-    free_mem_block(&((*board)->block1));
-
-    free_mem_block(&((*board)->block2));
-    free_mem_block(&((*board)->block3));
-    free_mem_block(&((*board)->block4));
-    free_mem_block(&((*board)->block5));
-    free_mem_block(&((*board)->block6));
-    free_mem_block(&((*board)->block7));
-
+    free_mem_block(board->block1);
+    free_mem_block(board->block2);
+    free_mem_block(board->block3);
+    free_mem_block(board->block4);
+    free_mem_block(board->block5);
+    free_mem_block(board->block6);
+    free_mem_block(board->block7);
 
 }
 
@@ -280,6 +282,7 @@ void shuffle_card_deck_SI(int split_num) {
      * TODO
      * Variable card_deck has to be freed.
      */
+
 
     card_deck = malloc(sizeof(Card));
 

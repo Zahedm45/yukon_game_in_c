@@ -4,16 +4,27 @@
 #include <string.h>
 #include "utils.c"
 #define MAX_BUFFER 60
+
 Game_board *game_board;
+
+void SI_command();
+void SD_command();
+void SW_command();
+void LD_command();
+
+char input[MAX_BUFFER];
+char *command = "";
+char *optional_command;
+char last_command[MAX_BUFFER] = "";
+char message_output[70] = "";
+char input_copy[MAX_BUFFER];
+
+char msg1[] = "Initialize a game board by typing LD";
 
 
 int main() {
 
-    char input[MAX_BUFFER];
-    char *command = "";
-    char *optional_command;
-    char last_command[60] = "";
-    char message_output[70] = "";
+
 
 
     // Initialize game board
@@ -33,80 +44,24 @@ int main() {
         fgets(input, MAX_BUFFER, stdin);
         printf("\n");
 
-        command = strtok(input, " ");
+        strcpy(input_copy, input);
+        command = strtok(input_copy, " ");
         optional_command = strtok(NULL, " ");
 
 
 
 
         if(strncmp(command, "LD", 2) == 0) {
-
-            if (optional_command != NULL) {
-                game_board = load_game_board_from_pc(optional_command);
-
-            } else {
-
-                if (card_deck == NULL) {
-                    initialize_card_deck(-1);
-
-                }
-                game_board = initialize_game_board(card_deck);
-            }
-
-
-
-            display_game_board(game_board);
-            strcpy(last_command, input);
-            strcpy(message_output, "OK");
-
+            LD_command();
 
         } else if(strncmp(command, "SW", 2) == 0) {
-
-            if (game_board == NULL){
-                strcpy(message_output, "Initialize a game board by typing LD");
-
-            } else {
-                strcpy(last_command, input);
-                strcpy(message_output, "OK");
-                set_cards_visible(&game_board);
-                display_game_board(game_board);
-            }
+            SW_command();
 
         } else if  (strncmp(command, "SD", 2) == 0) {
-
-            if (game_board == NULL) {
-                strcpy(message_output, "Initialize a game board by typing LD");
-
-            } else {
-                if (optional_command == NULL) {
-                    strcpy(message_output, "Board name");
-
-                } else {
-                    save_game_board_on_pc( game_board, optional_command);
-                    strcpy(last_command, input);
-                    strcpy(message_output, "OK");
-                }
-            }
+            SD_command();
 
         } else if (strncmp(command, "SI", 2) == 0) {
-
-            shuffle_card_deck_SI(5);
-            game_board = initialize_game_board(card_deck);
-
-            display_game_board(game_board);
-            if (optional_command != NULL) {
-
-
-
-/*                int split_num = atoi(optional_command);
-                if (split_num < 52) {
-                    shuffle_card_deck_SI(5);
-                    initialize_game_board(card_deck);
-                    puts("heeheheeh");
-                }*/
-            }
-
-
+            SI_command();
         }
 
         else {
@@ -120,3 +75,92 @@ int main() {
 }
 
 
+
+
+void LD_command() {
+
+    if (optional_command != NULL) {
+        game_board = load_game_board_from_pc(optional_command);
+
+    } else {
+
+/*        if (card_deck == NULL) {
+            initialize_card_deck(-1);
+
+        }*/
+
+        initialize_card_deck(-1);
+        game_board = initialize_game_board(card_deck);
+    }
+
+
+
+    display_game_board(game_board);
+    strcpy(last_command, input);
+    strcpy(message_output, "OK");
+}
+
+
+
+void SW_command() {
+    if (game_board == NULL){
+        strcpy(message_output, msg1);
+
+    } else {
+        strcpy(last_command, input);
+        strcpy(message_output, "OK");
+        set_cards_visible(&game_board);
+        display_game_board(game_board);
+    }
+
+}
+
+
+
+
+void SD_command() {
+
+    if (game_board == NULL) {
+        strcpy(message_output, msg1);
+
+    } else {
+        if (optional_command == NULL) {
+            strcpy(message_output, "Board name");
+
+        } else {
+            save_game_board_on_pc( game_board, optional_command);
+            strcpy(last_command, input);
+            strcpy(message_output, "OK");
+        }
+    }
+}
+
+
+
+void SI_command() {
+
+    if (card_deck != NULL) {
+
+        if (optional_command != NULL) {
+            int split_num = atoi(optional_command);
+            if (split_num < 52) {
+
+                shuffle_card_deck_SI(split_num);
+                game_board = initialize_game_board(card_deck);
+                display_game_board(game_board);
+
+                strcpy(last_command, input);
+                strcpy(message_output, "OK");
+
+            } else strcpy(message_output, "The digit is too large");
+
+        } else {
+
+
+        }
+
+
+    } else strcpy(message_output, msg1);
+
+
+}

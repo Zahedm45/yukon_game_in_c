@@ -30,3 +30,18 @@ void spilt_input(char input[], char first_input[], char second_input[]) {
     }
 
 }
+
+
+void str_copy(char *dist, char *source) {
+    for (int i = 0; source[i] != '\n'; ++i) {
+        dist[i] = source[i];
+    }
+}
+
+
+/*
+void str_copy(char *source) {
+    for (int i = 0; source[i] != '\n'; ++i) {
+        dist[i] = source[i];
+    }
+}*/
