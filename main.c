@@ -17,11 +17,13 @@ char input[MAX_BUFFER];
 char *command = "";
 char *optional_command;
 char last_command[MAX_BUFFER] = "";
-char message_output[70] = "";
+char message_output[100] = "";
 char input_copy[MAX_BUFFER];
 int in_play_mode = -1;
 
 char msg1[] = "Initialize a game board by typing LD";
+char pm_msg[] = "The game is in play mode!. Type Q to exit.";
+char file_saved_msg[] = "The game board has been saved on your pc.";
 
 
 int main() {
@@ -48,12 +50,21 @@ int main() {
         strcpy(input_copy, input);
         command = strtok(input_copy, " ");
         optional_command = strtok(NULL, " ");
-
         remove_last_line(input);
 
+
         if (in_play_mode == 1) {
-            strcpy(message_output, "The game is in play mode!");
+            if (strncmp(command, "Q", 1) == 0) {
+                in_play_mode = -1;
+                strcpy(message_output, "OK");
+
+            } else {
+                strcpy(message_output, pm_msg);
+
+            }
+
             strcpy(last_command, input);
+
 
         }else if (strncmp(command, "LD", 2) == 0) {
             LD_command();
@@ -133,7 +144,7 @@ void SD_command() {
         } else {
             save_game_board_on_pc( game_board, optional_command);
             strcpy(last_command, input);
-            strcpy(message_output, "OK");
+            strcpy(message_output, file_saved_msg);
         }
     }
 }
