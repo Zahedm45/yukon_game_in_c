@@ -19,6 +19,7 @@ char *optional_command;
 char last_command[MAX_BUFFER] = "";
 char message_output[70] = "";
 char input_copy[MAX_BUFFER];
+int in_play_mode = -1;
 
 char msg1[] = "Initialize a game board by typing LD";
 
@@ -50,14 +51,18 @@ int main() {
 
         remove_last_line(input);
 
+        if (in_play_mode == 1) {
+            strcpy(message_output, "The game is in play mode!");
+            strcpy(last_command, input);
 
-        if(strncmp(command, "LD", 2) == 0) {
+        }else if (strncmp(command, "LD", 2) == 0) {
             LD_command();
 
-        } else if(strncmp(command, "SW", 2) == 0) {
+
+        } else if (strncmp(command, "SW", 2) == 0) {
             SW_command();
 
-        } else if  (strncmp(command, "SD", 2) == 0) {
+        } else if (strncmp(command, "SD", 2) == 0) {
             SD_command();
 
         } else if (strncmp(command, "SI", 2) == 0) {
@@ -67,9 +72,7 @@ int main() {
 
         } else if (strncmp(command, "P", 1) == 0) {
             P_command();
-        }
-
-        else {
+        } else {
             strcpy(message_output, "Unknown command");
             strcpy(last_command, "INVALID COMMAND EXECUTED");
         }
@@ -178,7 +181,8 @@ void P_command() {
 
     card_deck = load_from_board_to_card_deck(game_board);
     game_board = set_play_board(card_deck, "[]", "[]", "[]", "[]");
+    set_half_of_the_cards_invisible(game_board);
     display_game_board(game_board);
-
+    in_play_mode = 1;
 
 }

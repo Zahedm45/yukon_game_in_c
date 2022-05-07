@@ -413,9 +413,29 @@ Game_board * set_play_board(Card *cards, char *f1, char *f2, char *f3, char *f4)
 }
 
 
+void set_block_invisible(Card * block, int depth) {
+
+    Card *temp = block;
+    int k = 0;
+    while (k < depth && temp != NULL) {
+        temp->face_up = -1;
+        temp = temp->next;
+        k++;
+    }
+
+}
 
 
+void set_half_of_the_cards_invisible(Game_board *gameBoard) {
 
+    set_block_invisible(gameBoard->block2, 1);
+    set_block_invisible(gameBoard->block3, 2);
+    set_block_invisible(gameBoard->block4, 3);
+    set_block_invisible(gameBoard->block5, 4);
+    set_block_invisible(gameBoard->block6, 5);
+    set_block_invisible(gameBoard->block7, 6);
+
+}
 
 
 
