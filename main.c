@@ -202,7 +202,7 @@ void play_mode_commands(){
         in_play_mode = -1;
         strcpy(message_output, "OK");
 
-    } else if (moves_commands(game_board, input) == 1) {
+    } else if (moves_commands(game_board, input, message_output) == 1) {
 
         display_game_board(game_board);
 

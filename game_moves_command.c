@@ -5,11 +5,11 @@
 int contains_colon(char *str);
 int contains_arrow(char *str);
 void init_commands(char *source, char *dist, int first_n, int sec_n);
-int move_card(Card *dist, Card *source, char card_name[]);
+int move_card(Card *dist, Card *source, char card_name[], char *msg);
 Card *find_block_name(Game_board *board, char *str);
 int convert_char_to_int(char str);
 
-int moves_commands(Game_board *board, char *commands){
+int moves_commands(Game_board *board, char *commands, char *msg){
 
     char move_from[3];
     char move_to[3];
@@ -27,10 +27,8 @@ int moves_commands(Game_board *board, char *commands){
 
 
 
-        int i = move_card(block_to, block_from, card_name);
+        return move_card(block_to, block_from, card_name, msg);
 
-
-        return 1;
 
 
     } else if (contains_arrow(commands) == 1) {
@@ -49,17 +47,14 @@ int moves_commands(Game_board *board, char *commands){
 }
 
 
-int move_card(Card *dist, Card *source, char card_name[]){
+int move_card(Card *dist, Card *source, char card_name[], char *msg){
 
-    Card *temp = source;
+    Card *temp_s = source;
 
-    while (temp->next != NULL) {
-        if (temp->next->face_up == VISIBLE) {
+    while (temp_s->next != NULL) {
+        if (temp_s->next->face_up == VISIBLE) {
 
-
-
-
-            if (strncmp(temp->next->suites_value, card_name, 2) == 0) {
+            if (strncmp(temp_s->next->suites_value, card_name, 2) == 0) {
 
 
                 Card *temp_d = dist;
@@ -69,14 +64,21 @@ int move_card(Card *dist, Card *source, char card_name[]){
                 }
 
 
+                if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
+                    strcpy(msg, "Move is not possible(same suit)!");
+                    return 0;
+                }
 
-                int card_to_move_val = convert_char_to_int(temp->next->suites_value[1]);
+
+
+                int card_to_move_val = convert_char_to_int(temp_s->next->suites_value[1]);
                 int card_dist_val = convert_char_to_int(temp_d->suites_value[1]);
 
                 if (card_to_move_val == (card_dist_val-1)) {
 
-                    temp_d->next = temp->next;
-                    temp->next = NULL;
+                    temp_d->next = temp_s->next;
+                    temp_s->next = NULL;
+                    return 1;
                 }
 
             }
@@ -84,7 +86,7 @@ int move_card(Card *dist, Card *source, char card_name[]){
 
 
 
-        temp = temp->next;
+        temp_s = temp_s->next;
     }
     return 0;
 
