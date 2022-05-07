@@ -309,27 +309,36 @@ Card * load_from_board_to_card_deck(Game_board *board) {
 
     int i = 0;
     while (i < 52) {
+
         switch ( i % 7 ) {
+
             case 0:
                 add_card_to_block(new_card_deck, block1->suites_value, block1->face_up);
+                block1 = block1->next;
                 break;
             case 1:
                 add_card_to_block(new_card_deck, block2->suites_value, block2->face_up);
+                block2 = block2->next;
                 break;
             case 2:
                 add_card_to_block( new_card_deck, block3->suites_value, block3->face_up);
+                block3 = block3->next;
                 break;
             case 3:
                 add_card_to_block( new_card_deck, block4->suites_value, block4->face_up);
+                block4 = block4->next;
                 break;
             case 4:
                 add_card_to_block( new_card_deck, block5->suites_value, block5->face_up);
+                block5 = block5->next;
                 break;
             case 5:
                 add_card_to_block( new_card_deck, block6->suites_value, block6->face_up);
+                block6 = block6->next;
                 break;
             case 6:
                 add_card_to_block( new_card_deck, block7->suites_value, block7->face_up);
+                block7 = block7->next;
                 break;
 
             default:

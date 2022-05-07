@@ -183,6 +183,9 @@ void SI_command() {
 void P_command() {
 
     card_deck = load_from_board_to_card_deck(game_board);
+
+    //print_card_deck(card_deck);
+
     game_board = set_play_board(card_deck, "[]", "[]", "[]", "[]");
     set_half_of_the_cards_invisible(game_board);
     display_game_board(game_board);
