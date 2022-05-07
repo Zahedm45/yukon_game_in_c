@@ -48,7 +48,7 @@ int main() {
         command = strtok(input_copy, " ");
         optional_command = strtok(NULL, " ");
 
-
+        remove_last_line(input);
 
 
         if(strncmp(command, "LD", 2) == 0) {
@@ -83,11 +83,6 @@ void LD_command() {
         game_board = load_game_board_from_pc(optional_command);
 
     } else {
-
-/*        if (card_deck == NULL) {
-            initialize_card_deck(-1);
-
-        }*/
 
         initialize_card_deck(-1);
         game_board = initialize_game_board(card_deck);
@@ -156,6 +151,15 @@ void SI_command() {
 
         } else {
 
+            int random_num = rand() % 52;
+
+            printf("rand %d\n", random_num);
+            shuffle_card_deck_SI(random_num);
+            game_board = initialize_game_board(card_deck);
+            display_game_board(game_board);
+
+            strcpy(last_command, input);
+            strcpy(message_output, "OK");
 
         }
 

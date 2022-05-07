@@ -161,24 +161,6 @@ void initialize_card_deck(int face_val) {
 
 
 
-/*void add_node(const char val[2], int hidden) {
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
-
-    if (card_deck != NULL) {
-        last_added_card_deck->next = newC;
-        last_added_card_deck = last_added_card_deck->next;
-
-    } else {
-
-        card_deck = newC;
-        last_added_card_deck = newC;
-    }
-
-}*/
-
 
 
 
@@ -300,12 +282,27 @@ void shuffle_card_deck_SI(int split_num) {
         }
     }
 
-
-    //print_card_deck(card_deck);
-
 }
 
 
+
+/*void add_node(const char val[2], int hidden) {
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+
+    if (card_deck != NULL) {
+        last_added_card_deck->next = newC;
+        last_added_card_deck = last_added_card_deck->next;
+
+    } else {
+
+        card_deck = newC;
+        last_added_card_deck = newC;
+    }
+
+}*/
 
 
 
