@@ -286,33 +286,67 @@ void shuffle_card_deck_SI(int split_num) {
 
 
 
-/*void add_node(const char val[2], int hidden) {
-    Card *newC = malloc(sizeof(Card));
-    newC->suites_value[0] = val[0];
-    newC->suites_value[1] = val[1];
-    newC->face_up = hidden;
 
-    if (card_deck != NULL) {
-        last_added_card_deck->next = newC;
-        last_added_card_deck = last_added_card_deck->next;
 
-    } else {
 
-        card_deck = newC;
-        last_added_card_deck = newC;
+
+Card * load_from_board_to_card_deck(Game_board *board) {
+    Card * new_card_deck = malloc(sizeof(Card));
+
+
+    Card *block1 = board->block1;
+    Card *block2 = board->block2;
+    Card *block3 = board->block3;
+    Card *block4 = board->block4;
+    Card *block5 = board->block5;
+    Card *block6 = board->block6;
+    Card *block7 = board->block7;
+
+
+
+
+
+    int i = 0;
+    while (i < 52) {
+        switch ( i % 7 ) {
+            case 0:
+                add_card_to_block(new_card_deck, block1->suites_value, block1->face_up);
+                break;
+            case 1:
+                add_card_to_block(new_card_deck, block2->suites_value, block2->face_up);
+                break;
+            case 2:
+                add_card_to_block( new_card_deck, block3->suites_value, block3->face_up);
+                break;
+            case 3:
+                add_card_to_block( new_card_deck, block4->suites_value, block4->face_up);
+                break;
+            case 4:
+                add_card_to_block( new_card_deck, block5->suites_value, block5->face_up);
+                break;
+            case 5:
+                add_card_to_block( new_card_deck, block6->suites_value, block6->face_up);
+                break;
+            case 6:
+                add_card_to_block( new_card_deck, block7->suites_value, block7->face_up);
+                break;
+
+            default:
+                puts("something is wrong initialize()");
+                ;
+        }
+
+        i++;
     }
 
-}*/
+    return new_card_deck;
+
+}
 
 
 
 
-
-
-
-
-
-/*Game_board * initialize_game_board(Card *cards){
+Game_board * set_play_board(Card *cards, char *f1, char *f2, char *f3, char *f4){
 
     Card *temp = cards;
     Game_board *new_board = malloc(sizeof(Game_board));
@@ -329,8 +363,6 @@ void shuffle_card_deck_SI(int split_num) {
                 printf("Something went wrong. From initialize_game_board() %d %d", i, k);
                 exit(0);
             }
-
-
 
 
             Card *newC = malloc(sizeof(Card));
@@ -362,15 +394,52 @@ void shuffle_card_deck_SI(int split_num) {
     }
 
 
+    strcpy(new_board->foundation1, f1);
+    strcpy(new_board->foundation2, f2);
+    strcpy(new_board->foundation3, f3);
+    strcpy(new_board->foundation4, f4);
 
-    strcpy(new_board->foundation1, "[]");
+
+/*    strcpy(new_board->foundation1, "[]");
     strcpy(new_board->foundation2, "[]");
     strcpy(new_board->foundation3, "[]");
-    strcpy(new_board->foundation4, "[]");
+    strcpy(new_board->foundation4, "[]");*/
 
 
 
 
 
     return new_board;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*void add_node(const char val[2], int hidden) {
+    Card *newC = malloc(sizeof(Card));
+    newC->suites_value[0] = val[0];
+    newC->suites_value[1] = val[1];
+    newC->face_up = hidden;
+
+    if (card_deck != NULL) {
+        last_added_card_deck->next = newC;
+        last_added_card_deck = last_added_card_deck->next;
+
+    } else {
+
+        card_deck = newC;
+        last_added_card_deck = newC;
+    }
+
 }*/
+

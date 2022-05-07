@@ -11,6 +11,7 @@ void SI_command();
 void SD_command();
 void SW_command();
 void LD_command();
+void P_command();
 
 char input[MAX_BUFFER];
 char *command = "";
@@ -63,6 +64,9 @@ int main() {
             SI_command();
         } else if (strncmp(command, "QQ", 2) == 0) {
             exit(0);
+
+        } else if (strncmp(command, "P", 1) == 0) {
+            P_command();
         }
 
         else {
@@ -166,6 +170,15 @@ void SI_command() {
 
 
     } else strcpy(message_output, msg1);
+
+}
+
+
+void P_command() {
+
+    card_deck = load_from_board_to_card_deck(game_board);
+    game_board = set_play_board(card_deck, "[]", "[]", "[]", "[]");
+    display_game_board(game_board);
 
 
 }
