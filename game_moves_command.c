@@ -16,6 +16,8 @@ int is_move_to_foundation_possible(Card *temp, char *foundation);
 int MOVE_NOT_POSSIBLE = 0;
 int COMMAND_NOT_FOUND = -1;
 int SUCCEEDED = 1;
+int EMPTY_CARD = 3;
+
 
 
 
@@ -89,7 +91,7 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
                 temp_s = temp_s->next;
             }
 
-            int result = is_move_to_foundation_possible(temp_s, foundation);
+            int result = is_move_to_foundation_possible(temp_s->next, foundation);
             if (result == 1) {
                 temp_s->next = NULL;
                 if (temp_s->suites_value[0] != '\0') {
@@ -108,10 +110,14 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
 
             int result = is_move_to_foundation_possible(temp_s, foundation);
             if (result == 1) {
-                temp_s->next = NULL;
-                if (temp_s->suites_value[0] != '\0') {
-                    temp_s->face_up = VISIBLE;
-                }
+
+                strncpy(temp_s->suites_value, "", 1);
+                temp_s->face_up = EMPTY_CARD;
+                return SUCCEEDED;
+
+            } else {
+                strcpy(msg, "Move is not possible");
+                return MOVE_NOT_POSSIBLE;
             }
         }
 
