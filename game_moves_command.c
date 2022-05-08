@@ -40,6 +40,7 @@ int moves_commands(Game_board *board, char *commands, char *msg){
         }
 
 
+
         return move_card_to_another_block(block_to, block_from, card_name, msg);
 
 
@@ -49,6 +50,10 @@ int moves_commands(Game_board *board, char *commands, char *msg){
         init_commands(commands, move_to, 4, 5);
         Card *block_from = find_block_name(board, move_from);
 
+        if (block_from == NULL) {
+            strcpy(msg, "Move is not possible");
+            return MOVE_NOT_POSSIBLE;
+        }
 
 
         if (move_to[0] == 'F') {
