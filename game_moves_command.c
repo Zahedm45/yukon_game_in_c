@@ -171,6 +171,13 @@ int is_move_to_foundation_possible(Card *temp, char *foundation) {
 
 
 
+int move_card_to_another_block_without_card_name(Card *dist, Card *source, char card_name[], char *msg) {
+
+}
+
+
+
+
 
 
 
@@ -179,7 +186,7 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
     Card *temp_s = source;
 
     int card_found = 0;
-
+    int is_source_last_card = 0;
 
     if (card_name != NULL) {
         while (temp_s->next != NULL) {
@@ -202,8 +209,38 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     } else {
 
-        while (temp_s->next->next != NULL) {
-            temp_s = temp_s->next;
+        if (temp_s->next != NULL) {
+            while (temp_s->next->next != NULL) {
+                temp_s = temp_s->next;
+            }
+        } else is_source_last_card = 1;
+
+    }
+
+
+
+    int card_to_move_val;
+
+    Card *temp_d = dist;
+
+    while (temp_d->next != NULL) {
+        temp_d = temp_d->next;
+    }
+
+    if (is_source_last_card != 1) {
+
+        card_to_move_val = convert_char_to_int(temp_s->next->suites_value[1]);
+        if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
+            strcpy(msg, "Move is not possible!");
+            return MOVE_NOT_POSSIBLE;
+        }
+
+    } else {
+
+        card_to_move_val = convert_char_to_int(temp_s->suites_value[1]);
+        if (temp_s->suites_value[0] == temp_d->suites_value[0]) {
+            strcpy(msg, "Move is not possible!");
+            return MOVE_NOT_POSSIBLE;
         }
     }
 
@@ -211,28 +248,33 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
 
 
-    Card *temp_d = dist;
-    while (temp_d->next != NULL) {
-        temp_d = temp_d->next;
-    }
-
-
-    if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
-        strcpy(msg, "Move is not possible!");
-        return MOVE_NOT_POSSIBLE;
-    }
-
-
-
-    int card_to_move_val = convert_char_to_int(temp_s->next->suites_value[1]);
     int card_dist_val = convert_char_to_int(temp_d->suites_value[1]);
 
     if (card_to_move_val == (card_dist_val-1)) {
 
-        temp_d->next = temp_s->next;
-        temp_s->next = NULL;
-        temp_s->face_up = 1;
+        if (is_source_last_card == 0) {
+            temp_d->next = temp_s->next;
+            temp_s->next = NULL;
+            temp_s->face_up = 1;
+
+
+        } else {
+
+
+            Card *to_add = malloc(sizeof(Card));
+            strncpy(to_add->suites_value, temp_s->suites_value, 2);
+            to_add->face_up = 1;
+            temp_d->next = to_add;
+
+
+            strncpy(temp_s->suites_value, "", 1);
+            temp_s->face_up = EMPTY_CARD;
+
+
+        }
         return SUCCEEDED;
+
+
     }
 
 
