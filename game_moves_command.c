@@ -10,6 +10,7 @@ Card *find_block_name(Game_board *board, char *str);
 int convert_char_to_int(char str);
 char *find_foundation_name(Game_board *board, char *str);
 int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, char *msg);
+int is_move_to_foundation_possible(Card *temp, char *foundation);
 
 
 int MOVE_NOT_POSSIBLE = 0;
@@ -77,51 +78,51 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
 
 
 
-    Card *temp = block_from;
-    while (temp->next->next != NULL) {
-        temp = temp->next;
-    }
+    Card *temp_s = block_from;
 
 
-    char *foundation = find_foundation_name(board, move_to);
-    if (foundation[0] == temp->next->suites_value[0]) {
-        int int_foundation_card_val = convert_char_to_int(foundation[1]);
-        int int_block_card_val = convert_char_to_int(temp->next->suites_value[1]);
+    if (temp_s != NULL) {
 
-
-        if (int_block_card_val-1 == int_foundation_card_val) {
-            foundation[0] = temp->next->suites_value[0];
-            foundation[1] = temp->next->suites_value[1];
-            temp->next = NULL;
-
-            if (temp->suites_value[0] != '\0') {
-                temp->face_up = VISIBLE;
+        char *foundation = find_foundation_name(board, move_to);
+        if (temp_s->next != NULL) {
+            while (temp_s->next->next != NULL) {
+                temp_s = temp_s->next;
             }
-            return SUCCEEDED;
+
+            int result = is_move_to_foundation_possible(temp_s, foundation);
+            if (result == 1) {
+                temp_s->next = NULL;
+                if (temp_s->suites_value[0] != '\0') {
+                    temp_s->face_up = VISIBLE;
+                }
+
+                return SUCCEEDED;
+
+            } else {
+                strcpy(msg, "Move is not possible");
+                return MOVE_NOT_POSSIBLE;
+            }
+
         } else {
-            strcpy(msg, "Move is not possible");
-            return MOVE_NOT_POSSIBLE;
-        }
 
-    } else if (foundation[0] == '[' && foundation[1] == ']') {
 
-        if (temp->next->suites_value[1] == 'A') {
-            foundation[0] = temp->next->suites_value[0];
-            foundation[1] = temp->next->suites_value[1];
-            temp->next = NULL;
-            if (temp->suites_value[0] != '\0') {
-                temp->face_up = VISIBLE;
+            int result = is_move_to_foundation_possible(temp_s, foundation);
+            if (result == 1) {
+                temp_s->next = NULL;
+                if (temp_s->suites_value[0] != '\0') {
+                    temp_s->face_up = VISIBLE;
+                }
             }
-
-            return SUCCEEDED;
         }
+
+
+
     }
 
 
-    else {
-        strcpy(msg, "Move is not possible");
-        return MOVE_NOT_POSSIBLE;
-    }
+
+
+
 
     return COMMAND_NOT_FOUND;
 }
@@ -129,7 +130,36 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
 
 
 
+int is_move_to_foundation_possible(Card *temp, char *foundation) {
 
+
+    if (foundation[0] == temp->suites_value[0]) {
+        int int_foundation_card_val = convert_char_to_int(foundation[1]);
+        int int_block_card_val = convert_char_to_int(temp->suites_value[1]);
+
+
+        if (int_block_card_val-1 == int_foundation_card_val) {
+            foundation[0] = temp->suites_value[0];
+            foundation[1] = temp->suites_value[1];
+
+            return 1;
+        } else {
+            return 0;
+        }
+
+    } else if (foundation[0] == '[' && foundation[1] == ']') {
+
+        if (temp->suites_value[1] == 'A') {
+            foundation[0] = temp->suites_value[0];
+            foundation[1] = temp->suites_value[1];
+
+            return 1;
+        }
+
+    }
+
+    return 0;
+}
 
 
 

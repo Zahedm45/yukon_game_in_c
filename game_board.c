@@ -41,6 +41,7 @@ Game_board * initialize_game_board(Card *cards){
 
 
 
+
     int i = 0;
     while (temp != NULL) {
 
