@@ -170,17 +170,6 @@ int is_move_to_foundation_possible(Card *temp, char *foundation) {
 
 
 
-
-int move_card_to_another_block_without_card_name(Card *dist, Card *source, char card_name[], char *msg) {
-
-}
-
-
-
-
-
-
-
 int move_card_to_another_block(Card *dist, Card *source, char card_name[], char *msg){
 
     Card *temp_s = source;
