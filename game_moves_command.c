@@ -187,6 +187,8 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     int card_found = 0;
     int is_source_last_card = 0;
+    int is_dest_last_card = 1;
+
 
     if (card_name != NULL) {
         while (temp_s->next != NULL) {
@@ -196,6 +198,10 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
                     card_found = 1;
                     break;
                 }
+            }
+
+            if (temp_s->suites_value[0] == '\0') {
+                break;
             }
 
             temp_s = temp_s->next;
@@ -211,7 +217,12 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
         if (temp_s->next != NULL) {
             while (temp_s->next->next != NULL) {
+                if (temp_s->suites_value[0] == '\0') {
+                    break;
+                }
+
                 temp_s = temp_s->next;
+
             }
         } else is_source_last_card = 1;
 
@@ -223,8 +234,10 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     Card *temp_d = dist;
 
+
     while (temp_d->next != NULL) {
         temp_d = temp_d->next;
+        is_dest_last_card = 0;
     }
 
     if (is_source_last_card != 1) {
@@ -250,7 +263,7 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
     int card_dist_val = convert_char_to_int(temp_d->suites_value[1]);
 
-    if (card_to_move_val == (card_dist_val-1)) {
+    if (card_to_move_val == (card_dist_val-1) || (is_dest_last_card == 1 && card_to_move_val == 13)) {
 
         if (is_source_last_card == 0) {
             temp_d->next = temp_s->next;
@@ -261,18 +274,31 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
         } else {
 
 
-            Card *to_add = malloc(sizeof(Card));
-            strncpy(to_add->suites_value, temp_s->suites_value, 2);
-            to_add->face_up = 1;
-            temp_d->next = to_add;
+            if (is_dest_last_card == 1) {
+                //temp_d = temp_s->next;
+
+                strncpy(temp_d->suites_value, temp_s->suites_value, 2);
+                temp_d->face_up = VISIBLE;
+                temp_d->next = temp_s->next;
+
+            } else {
+
+                Card *to_add = malloc(sizeof(Card));
+                strncpy(to_add->suites_value, temp_s->suites_value, 2);
+                to_add->face_up = 1;
+                temp_d->next = to_add;
 
 
-            strncpy(temp_s->suites_value, "", 1);
-            temp_s->face_up = EMPTY_CARD;
+                strncpy(temp_s->suites_value, "", 1);
+                temp_s->face_up = EMPTY_CARD;
+            }
 
 
         }
         return SUCCEEDED;
+
+    } else if (is_dest_last_card == 1) {
+
 
 
     }
