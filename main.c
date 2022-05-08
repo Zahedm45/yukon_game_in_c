@@ -13,6 +13,7 @@ void SW_command();
 void LD_command();
 void P_command();
 void play_mode_commands();
+void SR_command();
 
 char input[MAX_BUFFER];
 char *command = "";
@@ -73,7 +74,10 @@ int main() {
         } else if (strncmp(command, "QQ", 2) == 0) {
             exit(0);
 
-        } else if (strncmp(command, "P", 1) == 0) {
+        } else if (strncmp(command, "SR", 2) == 0) {
+            SR_command();
+
+        }else if (strncmp(command, "P", 1) == 0) {
             P_command();
         } else {
             strcpy(message_output, "Unknown command");
@@ -164,7 +168,6 @@ void SI_command() {
 
             int random_num = rand() % 52;
 
-            printf("rand %d\n", random_num);
             shuffle_card_deck_SI(random_num);
             game_board = initialize_game_board(card_deck);
             display_game_board(game_board);
@@ -231,5 +234,21 @@ void play_mode_commands(){
 
 
     strcpy(last_command, input);
+
+}
+
+
+void SR_command() {
+
+    for (int i = 0; i < 20; ++i) {
+        int random_num = rand() % 52;
+        shuffle_card_deck_SI(random_num);
+    }
+
+    game_board = initialize_game_board(card_deck);
+    display_game_board(game_board);
+    strcpy(last_command, input);
+    strcpy(message_output, "OK");
+
 
 }
