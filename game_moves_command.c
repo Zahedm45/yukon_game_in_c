@@ -75,13 +75,15 @@ int moves_commands(Game_board *board, char *commands, char *msg){
 
 int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, char *msg){
 
-    char *foundation = find_foundation_name(board, move_to);
+
 
     Card *temp = block_from;
     while (temp->next->next != NULL) {
         temp = temp->next;
     }
 
+
+    char *foundation = find_foundation_name(board, move_to);
     if (foundation[0] == temp->next->suites_value[0]) {
         int int_foundation_card_val = convert_char_to_int(foundation[1]);
         int int_block_card_val = convert_char_to_int(temp->next->suites_value[1]);
@@ -91,8 +93,11 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
             foundation[0] = temp->next->suites_value[0];
             foundation[1] = temp->next->suites_value[1];
             temp->next = NULL;
-            temp->face_up = 1;
-            return 1;
+
+            if (temp->suites_value[0] != '\0') {
+                temp->face_up = VISIBLE;
+            }
+            return SUCCEEDED;
         } else {
             strcpy(msg, "Move is not possible");
             return MOVE_NOT_POSSIBLE;
@@ -104,8 +109,11 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
             foundation[0] = temp->next->suites_value[0];
             foundation[1] = temp->next->suites_value[1];
             temp->next = NULL;
-            temp->face_up = 1;
-            return 1;
+            if (temp->suites_value[0] != '\0') {
+                temp->face_up = VISIBLE;
+            }
+
+            return SUCCEEDED;
         }
     }
 
@@ -117,6 +125,16 @@ int move_card_to_foundation(Game_board *board, Card *block_from, char *move_to, 
 
     return COMMAND_NOT_FOUND;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -164,7 +182,7 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
 
     if (temp_s->next->suites_value[0] == temp_d->suites_value[0]) {
-        strcpy(msg, "Move is not possible(same suit)!");
+        strcpy(msg, "Move is not possible!");
         return MOVE_NOT_POSSIBLE;
     }
 
@@ -183,8 +201,8 @@ int move_card_to_another_block(Card *dist, Card *source, char card_name[], char 
 
 
 
-
-    return 0;
+    strcpy(msg, "Move is not possible!");
+    return MOVE_NOT_POSSIBLE;
 
 }
 
